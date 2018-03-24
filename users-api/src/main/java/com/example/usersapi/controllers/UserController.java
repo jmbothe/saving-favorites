@@ -1,6 +1,8 @@
 package com.example.usersapi.controllers;
 
+import com.example.usersapi.models.Favorite;
 import com.example.usersapi.models.User;
+import com.example.usersapi.repositories.FavoriteRepository;
 import com.example.usersapi.repositories.UserRepository;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,10 @@ import java.io.IOException;
 public class UserController {
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private FavoriteRepository favoriteRepository;
+
 
     @GetMapping("/")
     public Iterable<User> findAllUsers() {
@@ -60,6 +66,19 @@ public class UserController {
 
         return userRepository.save(userFromDb);
     }
+
+    @PostMapping("/favorite")
+    public Favorite createNewFavorite(@RequestBody Favorite newFavorite) {
+        return favoriteRepository.save(newFavorite);
+    }
+
+    @DeleteMapping("/favorite/{id}")
+    public HttpStatus deleteFavoriteById(@PathVariable Long id) throws EmptyResultDataAccessException {
+
+        favoriteRepository.delete(id);
+        return HttpStatus.OK;
+    }
+
 
     //EXCEPTION HANDLERS
 

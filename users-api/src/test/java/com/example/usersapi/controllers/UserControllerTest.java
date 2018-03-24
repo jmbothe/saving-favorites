@@ -48,6 +48,7 @@ public class UserControllerTest {
 
     private User newUser;
     private User updatedSecondUser;
+    private Favorite newFavorite;
 
     @Before
     public void setUp() {
@@ -89,6 +90,10 @@ public class UserControllerTest {
             throw new EmptyResultDataAccessException("ERROR MESSAGE FROM MOCK!!!", 1234);
         }).when(mockUserRepository).delete(4L);
 
+        doAnswer(invocation -> {
+            throw new EmptyResultDataAccessException("ERROR MESSAGE FROM MOCK!!!", 1234);
+        }).when(mockFavoriteRepository).delete(6L);
+
         newUser = new User(
             "new_user_for_create",
             "New",
@@ -102,6 +107,9 @@ public class UserControllerTest {
             "Info"
         );
         given(mockUserRepository.save(updatedSecondUser)).willReturn(updatedSecondUser);
+
+        newFavorite = new Favorite(1L, 45678L);
+        given(mockFavoriteRepository.save(newFavorite)).willReturn(newFavorite);
 
     }
 
@@ -374,7 +382,72 @@ public class UserControllerTest {
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(jsonObjectMapper.writeValueAsString(updatedSecondUser))
             )
-            .andExpect(status().reason(containsString("User with ID of 4 was not found!")));
+        .andExpect(status().reason(containsString("User with ID of 4 was not found!")));
     }
 
+    // TEST POST new Favorite
+
+    @Test
+    public void createFavorite_success_returnsStatusOk() throws Exception {
+
+        this.mockMvc
+            .perform(
+                post("/favorite")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(jsonObjectMapper.writeValueAsString(newFavorite))
+            )
+            .andExpect(status().isOk());
+    }
+
+    @Test
+    public void createFavorite_success_returnsUserId() throws Exception {
+
+        this.mockMvc
+            .perform(
+                post("/favorite")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(jsonObjectMapper.writeValueAsString(newFavorite))
+            )
+            .andExpect(jsonPath("$.userId", is(1)));
+    }
+
+    @Test
+    public void createFavorite_success_returnsItemId() throws Exception {
+
+        this.mockMvc
+            .perform(
+                post("/favorite")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(jsonObjectMapper.writeValueAsString(newFavorite))
+            )
+            .andExpect(jsonPath("$.itemId", is(45678)));
+    }
+
+    //TEST DELETE Favorite by ID - happy path
+
+    @Test
+    public void deleteFavoriteById_success_returnsStatusOk() throws Exception {
+
+        this.mockMvc
+                .perform(delete("/favorite/1"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void deleteFavoriteById_success_deletesViaRepository() throws Exception {
+
+        this.mockMvc.perform(delete("/favorite/1"));
+
+        verify(mockFavoriteRepository, times(1)).delete(1L);
+    }
+
+    //TEST DELETE by ID route - unhappy path
+
+    @Test
+    public void deleteFavoriteById_failure_userNotFoundReturns404() throws Exception {
+
+        this.mockMvc
+                .perform(delete("/favorite/6"))
+                .andExpect(status().isNotFound());
+    }
 }
