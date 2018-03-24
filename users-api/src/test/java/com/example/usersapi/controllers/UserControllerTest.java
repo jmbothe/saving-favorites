@@ -48,6 +48,7 @@ public class UserControllerTest {
             Stream.of(firstUser, secondUser).collect(Collectors.toList());
 
         given(mockUserRepository.findAll()).willReturn(mockUsers);
+        given(mockUserRepository.findOne(1L)).willReturn(firstUser);
     }
 
     @Test
@@ -88,6 +89,38 @@ public class UserControllerTest {
         this.mockMvc
             .perform(get("/"))
             .andExpect(jsonPath("$[0].lastName", is("Person")));
+    }
+
+    @Test
+    public void findUserById_success_returnsStatusOK() throws Exception {
+
+        this.mockMvc
+            .perform(get("/1"))
+            .andExpect(status().isOk());
+    }
+
+    @Test
+    public void findUserById_success_returnUserName() throws Exception {
+
+        this.mockMvc
+            .perform(get("/1"))
+            .andExpect(jsonPath("$.email", is("someone")));
+    }
+
+    @Test
+    public void findUserById_success_returnFirstName() throws Exception {
+
+        this.mockMvc
+            .perform(get("/1"))
+            .andExpect(jsonPath("$.firstName", is("Ima")));
+    }
+
+    @Test
+    public void findUserById_success_returnLastName() throws Exception {
+
+        this.mockMvc
+            .perform(get("/1"))
+            .andExpect(jsonPath("$.lastName", is("Person")));
     }
 
 }
