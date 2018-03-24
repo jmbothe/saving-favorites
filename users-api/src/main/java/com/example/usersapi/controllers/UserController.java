@@ -22,12 +22,12 @@ public class UserController {
     private FavoriteRepository favoriteRepository;
 
 
-    @GetMapping("/")
+    @GetMapping("/get-all-users/")
     public Iterable<User> findAllUsers() {
         return userRepository.findAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/get-user/{id}")
     public User findUserById(@PathVariable Long id) throws NotFoundException {
 
         User foundUser = userRepository.findOne(id);
@@ -39,19 +39,19 @@ public class UserController {
         return foundUser;
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete-user/{id}")
     public HttpStatus deleteUserById(@PathVariable Long id) throws EmptyResultDataAccessException {
 
         userRepository.delete(id);
         return HttpStatus.OK;
     }
 
-    @PostMapping("/")
+    @PostMapping("/add-user/")
     public User createNewUser(@RequestBody User newUser) {
         return userRepository.save(newUser);
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/update-user/{id}")
     public User updateUserById(@PathVariable Long id, @RequestBody User userRequest) throws NotFoundException {
         User userFromDb = userRepository.findOne(id);
 
@@ -67,12 +67,12 @@ public class UserController {
         return userRepository.save(userFromDb);
     }
 
-    @PostMapping("/favorite")
+    @PostMapping("/add-favorite/")
     public Favorite createNewFavorite(@RequestBody Favorite newFavorite) {
         return favoriteRepository.save(newFavorite);
     }
 
-    @DeleteMapping("/favorite/{id}")
+    @DeleteMapping("/delete-favorite/{id}")
     public HttpStatus deleteFavoriteById(@PathVariable Long id) throws EmptyResultDataAccessException {
 
         favoriteRepository.delete(id);

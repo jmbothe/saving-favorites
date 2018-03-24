@@ -1,6 +1,6 @@
-package com.example.nyccityrecord.repositories;
+package com.example.savingfavorites.repositories;
 
-import com.example.nyccityrecord.models.User;
+import com.example.savingfavorites.models.User;
 import org.springframework.data.repository.CrudRepository;
 
 public interface UserRepository extends CrudRepository<User, Long> {

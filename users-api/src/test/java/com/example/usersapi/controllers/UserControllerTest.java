@@ -119,7 +119,7 @@ public class UserControllerTest {
     public void findAllUsers_success_returnsStatusOK() throws Exception {
 
         this.mockMvc
-            .perform(get("/"))
+            .perform(get("/get-all-users/"))
             .andExpect(status().isOk());
     }
 
@@ -127,7 +127,7 @@ public class UserControllerTest {
     public void findAllUsers_success_returnAllUsersAsJSON() throws Exception {
 
         this.mockMvc
-            .perform(get("/"))
+            .perform(get("/get-all-users/"))
             .andExpect(jsonPath("$", hasSize(2)));
     }
 
@@ -135,7 +135,7 @@ public class UserControllerTest {
     public void findAllUsers_success_returnEmailForEachUser() throws Exception {
 
         this.mockMvc
-            .perform(get("/"))
+            .perform(get("/get-all-users/"))
             .andExpect(jsonPath("$[0].email", is("someone")));
     }
 
@@ -143,7 +143,7 @@ public class UserControllerTest {
     public void findAllUsers_success_returnFirstNameForEachUser() throws Exception {
 
         this.mockMvc
-            .perform(get("/"))
+            .perform(get("/get-all-users/"))
             .andExpect(jsonPath("$[0].firstName", is("Ima")));
     }
 
@@ -151,7 +151,7 @@ public class UserControllerTest {
     public void findAllUsers_success_returnLastNameForEachUser() throws Exception {
 
         this.mockMvc
-            .perform(get("/"))
+            .perform(get("/get-all-users/"))
             .andExpect(jsonPath("$[0].lastName", is("Person")));
     }
 
@@ -159,7 +159,7 @@ public class UserControllerTest {
     public void findAllUsers_success_returnFavoritesForEachUser() throws Exception {
 
         this.mockMvc
-            .perform(get("/"))
+            .perform(get("/get-all-users/"))
             .andExpect(jsonPath("$[0].favorites", hasSize(2)));
     }
 
@@ -170,7 +170,7 @@ public class UserControllerTest {
     public void findUserById_success_returnsStatusOK() throws Exception {
 
         this.mockMvc
-            .perform(get("/1"))
+            .perform(get("/get-user/1"))
             .andExpect(status().isOk());
     }
 
@@ -178,7 +178,7 @@ public class UserControllerTest {
     public void findUserById_success_returnUserName() throws Exception {
 
         this.mockMvc
-            .perform(get("/1"))
+            .perform(get("/get-user/1"))
             .andExpect(jsonPath("$.email", is("someone")));
     }
 
@@ -186,7 +186,7 @@ public class UserControllerTest {
     public void findUserById_success_returnFirstName() throws Exception {
 
         this.mockMvc
-            .perform(get("/1"))
+            .perform(get("/get-user/1"))
             .andExpect(jsonPath("$.firstName", is("Ima")));
     }
 
@@ -194,7 +194,7 @@ public class UserControllerTest {
     public void findUserById_success_returnLastName() throws Exception {
 
         this.mockMvc
-            .perform(get("/1"))
+            .perform(get("/get-user/1"))
             .andExpect(jsonPath("$.lastName", is("Person")));
     }
 
@@ -202,7 +202,7 @@ public class UserControllerTest {
     public void findUserById_success_returnFavorites() throws Exception {
 
         this.mockMvc
-            .perform(get("/1"))
+            .perform(get("/get-user/1"))
             .andExpect(jsonPath("$.favorites[0].itemId", is(12345)));
     }
 
@@ -212,7 +212,7 @@ public class UserControllerTest {
     public void findUserById_failure_userNotFoundReturns404() throws Exception {
 
         this.mockMvc
-            .perform(get("/4"))
+            .perform(get("/get-user/4"))
             .andExpect(status().isNotFound());
     }
 
@@ -220,7 +220,7 @@ public class UserControllerTest {
     public void findUserById_failure_userNotFoundReturnsNotFoundErrorMessage() throws Exception {
 
         this.mockMvc
-            .perform(get("/4"))
+            .perform(get("/get-user/4"))
             .andExpect(status().reason(containsString("User with ID of 4 was not found!")));
     }
 
@@ -230,14 +230,14 @@ public class UserControllerTest {
     public void deleteUserById_success_returnsStatusOk() throws Exception {
 
         this.mockMvc
-                .perform(delete("/1"))
+                .perform(delete("/delete-user/1"))
                 .andExpect(status().isOk());
     }
 
     @Test
     public void deleteUserById_success_deletesViaRepository() throws Exception {
 
-        this.mockMvc.perform(delete("/1"));
+        this.mockMvc.perform(delete("/delete-user/1"));
 
         verify(mockUserRepository, times(1)).delete(1L);
     }
@@ -248,7 +248,7 @@ public class UserControllerTest {
     public void deleteUserById_failure_userNotFoundReturns404() throws Exception {
 
         this.mockMvc
-            .perform(delete("/4"))
+            .perform(delete("/delete-user/4"))
             .andExpect(status().isNotFound());
     }
 
@@ -259,7 +259,7 @@ public class UserControllerTest {
 
         this.mockMvc
             .perform(
-                post("/")
+                post("/add-user/")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonObjectMapper.writeValueAsString(newUser))
             )
@@ -271,7 +271,7 @@ public class UserControllerTest {
 
         this.mockMvc
             .perform(
-                post("/")
+                post("/add-user/")
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(jsonObjectMapper.writeValueAsString(newUser))
             )
@@ -283,7 +283,7 @@ public class UserControllerTest {
 
         this.mockMvc
             .perform(
-                post("/")
+                post("/add-user/")
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(jsonObjectMapper.writeValueAsString(newUser))
             )
@@ -295,7 +295,7 @@ public class UserControllerTest {
 
         this.mockMvc
             .perform(
-                post("/")
+                post("/add-user/")
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(jsonObjectMapper.writeValueAsString(newUser))
             )
@@ -305,7 +305,7 @@ public class UserControllerTest {
     public void createUser_success_returnFavorites() throws Exception {
 
         this.mockMvc
-            .perform(get("/"))
+            .perform(get("/add-user/"))
             .andExpect(jsonPath("$.favorites").doesNotExist());
     }
 
@@ -316,7 +316,7 @@ public class UserControllerTest {
 
         this.mockMvc
             .perform(
-                patch("/1")
+                patch("/update-user/1")
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(jsonObjectMapper.writeValueAsString(updatedSecondUser))
             )
@@ -328,7 +328,7 @@ public class UserControllerTest {
 
         this.mockMvc
             .perform(
-                patch("/1")
+                patch("/update-user/1")
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(jsonObjectMapper.writeValueAsString(updatedSecondUser))
             )
@@ -340,7 +340,7 @@ public class UserControllerTest {
 
         this.mockMvc
             .perform(
-                patch("/1")
+                patch("/update-user/1")
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(jsonObjectMapper.writeValueAsString(updatedSecondUser))
             )
@@ -352,7 +352,7 @@ public class UserControllerTest {
 
         this.mockMvc
             .perform(
-                patch("/1")
+                patch("/update-user/1")
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(jsonObjectMapper.writeValueAsString(updatedSecondUser))
             )
@@ -366,7 +366,7 @@ public class UserControllerTest {
 
         this.mockMvc
                 .perform(
-                    patch("/4")
+                    patch("/update-user/4")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(jsonObjectMapper.writeValueAsString(updatedSecondUser))
             )
@@ -378,7 +378,7 @@ public class UserControllerTest {
 
         this.mockMvc
             .perform(
-                patch("/4")
+                patch("/update-user/4")
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(jsonObjectMapper.writeValueAsString(updatedSecondUser))
             )
@@ -392,7 +392,7 @@ public class UserControllerTest {
 
         this.mockMvc
             .perform(
-                post("/favorite")
+                post("/add-favorite/")
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(jsonObjectMapper.writeValueAsString(newFavorite))
             )
@@ -404,7 +404,7 @@ public class UserControllerTest {
 
         this.mockMvc
             .perform(
-                post("/favorite")
+                post("/add-favorite/")
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(jsonObjectMapper.writeValueAsString(newFavorite))
             )
@@ -416,7 +416,7 @@ public class UserControllerTest {
 
         this.mockMvc
             .perform(
-                post("/favorite")
+                post("/add-favorite/")
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(jsonObjectMapper.writeValueAsString(newFavorite))
             )
@@ -429,25 +429,25 @@ public class UserControllerTest {
     public void deleteFavoriteById_success_returnsStatusOk() throws Exception {
 
         this.mockMvc
-                .perform(delete("/favorite/1"))
+                .perform(delete("/delete-favorite/1"))
                 .andExpect(status().isOk());
     }
 
     @Test
     public void deleteFavoriteById_success_deletesViaRepository() throws Exception {
 
-        this.mockMvc.perform(delete("/favorite/1"));
+        this.mockMvc.perform(delete("/delete-favorite/1"));
 
         verify(mockFavoriteRepository, times(1)).delete(1L);
     }
 
-    //TEST DELETE by ID route - unhappy path
+    //TEST DELETE favorite by ID - unhappy path
 
     @Test
     public void deleteFavoriteById_failure_userNotFoundReturns404() throws Exception {
 
         this.mockMvc
-                .perform(delete("/favorite/6"))
-                .andExpect(status().isNotFound());
+            .perform(delete("/delete-favorite/6"))
+            .andExpect(status().isNotFound());
     }
 }

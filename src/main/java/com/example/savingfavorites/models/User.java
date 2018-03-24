@@ -1,6 +1,5 @@
-package com.example.nyccityrecord.models;
+package com.example.savingfavorites.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -25,7 +24,7 @@ public class User {
     @Column(name = "LAST_NAME")
     private String lastName;
 
-//    @JsonIgnore
+    //    @JsonIgnore
     @OneToMany
     @JoinColumn(name = "USER_ID")
     private List<Favorite> favorites;
@@ -34,5 +33,12 @@ public class User {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public User(String email, String firstName, String lastName, List<Favorite> favorites) {
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.favorites = favorites;
     }
 }

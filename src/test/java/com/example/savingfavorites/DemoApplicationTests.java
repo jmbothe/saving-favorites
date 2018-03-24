@@ -1,4 +1,4 @@
-package com.example.nyccityrecord;
+package com.example.savingfavorites;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

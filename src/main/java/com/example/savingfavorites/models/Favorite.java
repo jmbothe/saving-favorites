@@ -1,4 +1,4 @@
-package com.example.nyccityrecord.models;
+package com.example.savingfavorites.models;
 
 import lombok.*;
 
