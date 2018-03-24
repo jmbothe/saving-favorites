@@ -1,5 +1,6 @@
 package com.example.nyccityrecord.features;
 
+import com.example.nyccityrecord.models.Favorite;
 import com.example.nyccityrecord.models.User;
 import com.example.nyccityrecord.repositories.FavoriteRepository;
 import com.example.nyccityrecord.repositories.UserRepository;
@@ -123,5 +124,47 @@ public class UsersApiFeatureTest {
 
     @Test
     public void shouldAllowFullCrudForFavorites() throws Exception {
+        Favorite firstFav = new Favorite(1L, 12345L);
+        Favorite secondFav = new Favorite(1L, 56789L);
+
+        Stream.of(firstFav, secondFav)
+            .forEach(fav -> {
+                favoriteRepository.save(fav);
+            });
+
+        when()
+                .get("http://localhost:8080/favorites/")
+        .then()
+                .statusCode((is(200)))
+                .and().body(containsString("1"))
+                .and().body(containsString("12345"));
+
+        // Test creating a Favorite
+
+        Favorite favoriteNotYetInDb = new Favorite(3L, 76543L);
+
+        given()
+            .contentType(JSON)
+            .and().body(favoriteNotYetInDb)
+            .when()
+            .post("http://localhost:8080/users")
+            .then()
+            .statusCode(is(200))
+            .and().body(containsString("76543"));
+
+        // Test get all Favorites again
+        when()
+            .get("http://localhost:8080/users/")
+            .then()
+            .statusCode(is(200))
+            .and().body(containsString("12345"))
+            .and().body(containsString("56789"))
+            .and().body(containsString("76543"));
+
+        // Test deleting a Favorite
+        when()
+            .delete("http://localhost:8080/users/" + secondFav.getId())
+            .then()
+            .statusCode(is(200));
     }
 }
