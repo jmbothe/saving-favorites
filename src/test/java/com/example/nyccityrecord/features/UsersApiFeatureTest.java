@@ -1,6 +1,7 @@
 package com.example.nyccityrecord.features;
 
 import com.example.nyccityrecord.models.User;
+import com.example.nyccityrecord.repositories.FavoriteRepository;
 import com.example.nyccityrecord.repositories.UserRepository;
 import org.junit.After;
 import org.junit.Before;
@@ -25,14 +26,19 @@ public class UsersApiFeatureTest {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private FavoriteRepository favoriteRepository;
+
     @Before
     public void setUp() {
         userRepository.deleteAll();
+        favoriteRepository.deleteAll();
     }
 
     @After
     public void tearDown() {
         userRepository.deleteAll();
+        favoriteRepository.deleteAll();
     }
 
     @Test
@@ -113,5 +119,9 @@ public class UsersApiFeatureTest {
             .delete("http://localhost:8080/users/" + secondUser.getId())
             .then()
             .statusCode(is(200));
+    }
+
+    @Test
+    public void shouldAllowFullCrudForFavorites() throws Exception {
     }
 }
