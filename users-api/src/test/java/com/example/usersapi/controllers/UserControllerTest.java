@@ -77,7 +77,7 @@ public class UserControllerTest {
         given(mockUserRepository.save(newUser)).willReturn(newUser);
 
         updatedSecondUser = new User(
-            "updated_username",
+            "updated_email",
             "Updated",
             "Info"
         );
@@ -280,7 +280,7 @@ public class UserControllerTest {
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(jsonObjectMapper.writeValueAsString(updatedSecondUser))
             )
-            .andExpect(jsonPath("$.userName", is("new_username")));
+            .andExpect(jsonPath("$.email", is("updated_email")));
     }
 
     @Test
@@ -292,7 +292,7 @@ public class UserControllerTest {
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(jsonObjectMapper.writeValueAsString(updatedSecondUser))
             )
-            .andExpect(jsonPath("$.firstName", is("new")));
+            .andExpect(jsonPath("$.firstName", is("Updated")));
     }
 
     @Test
@@ -304,7 +304,7 @@ public class UserControllerTest {
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(jsonObjectMapper.writeValueAsString(updatedSecondUser))
             )
-            .andExpect(jsonPath("$.lastName", is("name")));
+            .andExpect(jsonPath("$.lastName", is("Info")));
     }
 
 }

@@ -45,6 +45,17 @@ public class UserController {
         return userRepository.save(newUser);
     }
 
+    @PatchMapping("/{id}")
+    public User updateUserById(@PathVariable Long id, @RequestBody User userRequest) {
+        User userFromDb = userRepository.findOne(id);
+
+        userFromDb.setEmail(userRequest.getEmail());
+        userFromDb.setFirstName(userRequest.getFirstName());
+        userFromDb.setLastName(userRequest.getLastName());
+
+        return userRepository.save(userFromDb);
+    }
+
     //EXCEPTION HANDLERS
 
     @ExceptionHandler
