@@ -40,6 +40,11 @@ public class UserController {
         return HttpStatus.OK;
     }
 
+    @PostMapping("/")
+    public User createNewUser(@RequestBody User newUser) {
+        return userRepository.save(newUser);
+    }
+
     //EXCEPTION HANDLERS
 
     @ExceptionHandler
