@@ -34,4 +34,11 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
     }
+
+    public User(String email, String firstName, String lastName, List<Favorite> favorites) {
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.favorites = favorites;
+    }
 }

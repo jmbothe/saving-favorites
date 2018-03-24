@@ -1,6 +1,8 @@
 package com.example.usersapi.controllers;
 
+import com.example.usersapi.models.Favorite;
 import com.example.usersapi.models.User;
+import com.example.usersapi.repositories.FavoriteRepository;
 import com.example.usersapi.repositories.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
@@ -14,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -37,6 +40,9 @@ public class UserControllerTest {
     @MockBean
     private UserRepository mockUserRepository;
 
+    @MockBean
+    private FavoriteRepository mockFavoriteRepository;
+
     @Autowired
     private ObjectMapper jsonObjectMapper;
 
@@ -45,16 +51,30 @@ public class UserControllerTest {
 
     @Before
     public void setUp() {
+
+        Favorite firstUserFirstFav = new Favorite(1L, 12345L);
+        Favorite firstUserSecondFav = new Favorite(1L, 56789L);
+        Favorite secondUserFirstFav = new Favorite(2L, 54321L);
+        Favorite secondUserSecondFav = new Favorite(2L, 98765L);
+
+        List<Favorite> firstUserFavs =
+                Stream.of(firstUserFirstFav, firstUserSecondFav).collect(Collectors.toList());
+
+        List<Favorite> secondUserFavs =
+                Stream.of(secondUserFirstFav, secondUserSecondFav).collect(Collectors.toList());
+
         User firstUser = new User(
             "someone",
             "Ima",
-            "Person"
+            "Person",
+            firstUserFavs
         );
 
         User secondUser = new User(
             "someone_else",
             "Someone",
-            "Else"
+            "Else",
+            secondUserFavs
         );
 
         Iterable<User> mockUsers =
@@ -127,6 +147,15 @@ public class UserControllerTest {
             .andExpect(jsonPath("$[0].lastName", is("Person")));
     }
 
+    @Test
+    public void findAllUsers_success_returnFavoritesForEachUser() throws Exception {
+
+        this.mockMvc
+            .perform(get("/"))
+            .andExpect(jsonPath("$[0].favorites", hasSize(2)));
+    }
+
+
     //TEST GET user by ID, Happy path
 
     @Test
@@ -159,6 +188,14 @@ public class UserControllerTest {
         this.mockMvc
             .perform(get("/1"))
             .andExpect(jsonPath("$.lastName", is("Person")));
+    }
+
+    @Test
+    public void findUserById_success_returnFavorites() throws Exception {
+
+        this.mockMvc
+            .perform(get("/1"))
+            .andExpect(jsonPath("$.favorites[0].itemId", is(12345)));
     }
 
     //TEST GET user by ID, unhappy path
@@ -256,6 +293,13 @@ public class UserControllerTest {
             )
             .andExpect(jsonPath("$.lastName", is("User")));
     }
+    @Test
+    public void createUser_success_returnFavorites() throws Exception {
+
+        this.mockMvc
+            .perform(get("/"))
+            .andExpect(jsonPath("$.favorites").doesNotExist());
+    }
 
     //TEST PATCH user
 
@@ -272,7 +316,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void updateUserById_success_returnsUpdatedUserName() throws Exception {
+    public void updateUserById_success_returnsUpdatedEmail() throws Exception {
 
         this.mockMvc
             .perform(

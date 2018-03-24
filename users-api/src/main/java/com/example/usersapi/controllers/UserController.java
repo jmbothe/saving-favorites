@@ -56,6 +56,7 @@ public class UserController {
         userFromDb.setEmail(userRequest.getEmail());
         userFromDb.setFirstName(userRequest.getFirstName());
         userFromDb.setLastName(userRequest.getLastName());
+        userFromDb.setFavorites(userRequest.getFavorites());
 
         return userRepository.save(userFromDb);
     }
