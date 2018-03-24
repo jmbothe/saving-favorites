@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -18,6 +19,7 @@ import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -54,6 +56,12 @@ public class UserControllerTest {
         given(mockUserRepository.findAll()).willReturn(mockUsers);
         given(mockUserRepository.findOne(1L)).willReturn(firstUser);
         given(mockUserRepository.findOne(4L)).willReturn(null);
+
+        // Mock out Delete to return EmptyResultDataAccessException for missing user with ID of 4
+        doAnswer(invocation -> {
+            throw new EmptyResultDataAccessException("ERROR MESSAGE FROM MOCK!!!", 1234);
+        }).when(mockUserRepository).delete(4L);
+
     }
 
     //TEST GET all users
@@ -150,7 +158,7 @@ public class UserControllerTest {
             .andExpect(status().reason(containsString("User with ID of 4 was not found!")));
     }
 
-    //TEST DELETE by ID route
+    //TEST DELETE by ID route - happy path
 
     @Test
     public void deleteUserById_success_returnsStatusOk() throws Exception {
@@ -166,6 +174,16 @@ public class UserControllerTest {
         this.mockMvc.perform(delete("/1"));
 
         verify(mockUserRepository, times(1)).delete(1L);
+    }
+
+    //TEST DELETE by ID route - unhappy path
+
+    @Test
+    public void deleteUserById_failure_userNotFoundReturns404() throws Exception {
+
+        this.mockMvc
+            .perform(delete("/4"))
+            .andExpect(status().isNotFound());
     }
 
 }
