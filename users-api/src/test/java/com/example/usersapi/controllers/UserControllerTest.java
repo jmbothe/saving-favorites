@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -63,6 +64,30 @@ public class UserControllerTest {
         this.mockMvc
             .perform(get("/"))
             .andExpect(jsonPath("$", hasSize(2)));
+    }
+
+    @Test
+    public void findAllUsers_success_returnEmailForEachUser() throws Exception {
+
+        this.mockMvc
+            .perform(get("/"))
+            .andExpect(jsonPath("$[0].email", is("someone")));
+    }
+
+    @Test
+    public void findAllUsers_success_returnFirstNameForEachUser() throws Exception {
+
+        this.mockMvc
+            .perform(get("/"))
+            .andExpect(jsonPath("$[0].firstName", is("Ima")));
+    }
+
+    @Test
+    public void findAllUsers_success_returnLastNameForEachUser() throws Exception {
+
+        this.mockMvc
+            .perform(get("/"))
+            .andExpect(jsonPath("$[0].lastName", is("Person")));
     }
 
 }
