@@ -49,5 +49,12 @@ task waitForUsersAPI(type: Exec) {
 }
 
 test {
-	dependsOn waitForUsersAPI
+    dependsOn cleanTest
+    dependsOn waitForUsersAPI
+
+    testLogging {
+        exceptionFormat "full"
+        events "skipped", "passed", "failed"
+        displayGranularity 2
+    }
 }
