@@ -1,8 +1,10 @@
 package com.example.nyccityrecord.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @AllArgsConstructor @NoArgsConstructor @Getter @Setter
@@ -11,7 +13,8 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "USER_ID")
+    private Long userId;
 
     @Column(name = "EMAIL")
     private String email;
@@ -21,6 +24,11 @@ public class User {
 
     @Column(name = "LAST_NAME")
     private String lastName;
+
+//    @JsonIgnore
+    @OneToMany
+    @JoinColumn(name = "USER_ID")
+    private List<Favorite> favorites;
 
     public User(String email, String firstName, String lastName) {
         this.email = email;

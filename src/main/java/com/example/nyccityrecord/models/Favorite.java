@@ -11,7 +11,8 @@ public class Favorite {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "FAVORITE_ID")
+    private Long favoriteId;
 
     @Column(name = "USER_ID")
     private Long userId;

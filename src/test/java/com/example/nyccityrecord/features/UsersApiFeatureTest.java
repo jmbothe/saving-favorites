@@ -97,7 +97,7 @@ public class UsersApiFeatureTest {
 
         // Test finding one user by ID
         when()
-            .get("http://localhost:8080/users/" + secondUser.getId())
+            .get("http://localhost:8080/users/" + secondUser.getUserId())
             .then()
             .statusCode(is(200))
             .and().body(containsString("Someone"))
@@ -110,14 +110,14 @@ public class UsersApiFeatureTest {
             .contentType(JSON)
             .and().body(secondUser)
             .when()
-            .patch("http://localhost:8080/users/" + secondUser.getId())
+            .patch("http://localhost:8080/users/" + secondUser.getUserId())
             .then()
             .statusCode(is(200))
             .and().body(containsString("changed_name"));
 
         // Test deleting a user
         when()
-            .delete("http://localhost:8080/users/" + secondUser.getId())
+            .delete("http://localhost:8080/users/" + secondUser.getUserId())
             .then()
             .statusCode(is(200));
     }
@@ -163,7 +163,7 @@ public class UsersApiFeatureTest {
 
         // Test deleting a Favorite
         when()
-            .delete("http://localhost:8080/users/" + secondFav.getId())
+            .delete("http://localhost:8080/users/" + secondFav.getFavoriteId())
             .then()
             .statusCode(is(200));
     }
