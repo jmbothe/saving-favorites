@@ -46,8 +46,12 @@ public class UserController {
     }
 
     @PatchMapping("/{id}")
-    public User updateUserById(@PathVariable Long id, @RequestBody User userRequest) {
+    public User updateUserById(@PathVariable Long id, @RequestBody User userRequest) throws NotFoundException {
         User userFromDb = userRepository.findOne(id);
+
+        if (userFromDb == null) {
+            throw new NotFoundException("User with ID of " + id + " was not found!");
+        }
 
         userFromDb.setEmail(userRequest.getEmail());
         userFromDb.setFirstName(userRequest.getFirstName());
