@@ -1,0 +1,12 @@
+create table USERS (
+  USER_ID serial,
+  EMAIL varchar(100) NOT NULL,
+  FIRST_NAME VARCHAR(100) NOT NULL,
+  LAST_NAME VARCHAR(100) NOT NULL
+)
+
+create table FAVORITES (
+  FAVORITE_ID serial,
+  USER_ID int NOT NULL,
+  ITEM_ID int NOT NULL
+)
