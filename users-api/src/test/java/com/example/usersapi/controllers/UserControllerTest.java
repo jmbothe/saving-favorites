@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.BDDMockito.given;
@@ -49,7 +50,10 @@ public class UserControllerTest {
 
         given(mockUserRepository.findAll()).willReturn(mockUsers);
         given(mockUserRepository.findOne(1L)).willReturn(firstUser);
+        given(mockUserRepository.findOne(4L)).willReturn(null);
     }
+
+    //TEST GET all users
 
     @Test
     public void findAllUsers_success_returnsStatusOK() throws Exception {
@@ -91,6 +95,8 @@ public class UserControllerTest {
             .andExpect(jsonPath("$[0].lastName", is("Person")));
     }
 
+    //TEST GET user by ID, Happy path
+
     @Test
     public void findUserById_success_returnsStatusOK() throws Exception {
 
@@ -122,5 +128,24 @@ public class UserControllerTest {
             .perform(get("/1"))
             .andExpect(jsonPath("$.lastName", is("Person")));
     }
+
+    //TEST GET user by ID, unhappy path
+
+    @Test
+    public void findUserById_failure_userNotFoundReturns404() throws Exception {
+
+        this.mockMvc
+            .perform(get("/4"))
+            .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void findUserById_failure_userNotFoundReturnsNotFoundErrorMessage() throws Exception {
+
+        this.mockMvc
+            .perform(get("/4"))
+            .andExpect(status().reason(containsString("User with ID of 4 was not found!")));
+    }
+
 
 }
