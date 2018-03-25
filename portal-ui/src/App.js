@@ -10,19 +10,30 @@ import Home from './components/Home';
 class App extends Component {
   state = {
     collectionId: 2,
-    currentUser: {
-      userId: '',
-      email: '',
-      firstName: '',
-      lastName: ''
-    }
+    // currentUser: {
+    //   userId: '',
+    //   email: '',
+    //   firstName: '',
+    //   lastName: ''
+    // }
+  }
+
+  logInOut = (user) => {
+    let currentUser = {...this.state.currentUser};
+    currentUser = user || null;
+    this.setState({currentUser});
   }
 
   LoginComponent = () =>
-    <Login />;
+    <Login
+      logInOut={this.logInOut}
+    />;
 
-  homeComponent = () =>
-    <Home />;
+  HomeComponent = () =>
+    <Home
+      currentUser={this.state.currentUser}
+      logInOut={this.logInOut}
+    />;
 
   ResultsComponent = () =>
     <Results />;

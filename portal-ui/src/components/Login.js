@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import PageWrapper from './PageWrapper'
 
 class Login extends Component {
   state = {}
   render() { 
     return (
-      <section></section>
+      <PageWrapper>
+        Login
+      </PageWrapper>
     )
   }
 }
