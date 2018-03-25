@@ -2,8 +2,14 @@ import React, { Component } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
+import Results from './components/Results';
+import Detail from './components/Detail';
+import Login from './components/Login';
+import Home from './components/Home';
+
 class App extends Component {
   state = {
+    collectionId: 2,
     currentUser: {
       userId: '',
       email: '',
