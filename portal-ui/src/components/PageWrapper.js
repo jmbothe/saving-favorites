@@ -1,18 +1,34 @@
 import React, { Component } from 'react';
 
-import MainHeader from './MainHeader'
-import MainFooter from './MainFooter'
-
 class PageWrapper extends Component {
-  state = {}
+
+  loggedInCard = () =>
+    <div className="logged-in-card">
+      <span>
+        Logged in as {this.props.currentUser.firstName} {this.props.currentUser.lastName}
+      </span>
+      <button onClick={() => this.props.logInOut()}>
+        log out
+      </button>
+    </div>
+
   render() { 
     return (
-      <div>
-        <MainHeader />
+      <div className="page-wrapper">
+        <header>
+          <div>
+            <h1>Walters Art Museum: Ancient Americas Collection</h1>
+          </div>
+          {this.props.currentUser ? this.loggedInCard() : null}
+        </header>
+
         <section>
           {this.props.children}
         </section>
-        <MainFooter />
+
+        <footer>
+
+        </footer>
       </div>
     )
   }

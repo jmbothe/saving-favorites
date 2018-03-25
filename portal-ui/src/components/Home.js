@@ -4,12 +4,13 @@ import {Redirect} from 'react-router-dom';
 import PageWrapper from './PageWrapper';
 
 class Home extends Component {
-state = {  }
- 
   render() { 
     if (!this.props.currentUser) return <Redirect to="/Login"/>;
     return (
-      <PageWrapper>
+      <PageWrapper
+        currentUser={this.props.currentUser}
+        logInOut={this.props.logInOut}
+      >
         Home
       </PageWrapper>
     )

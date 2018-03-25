@@ -5,7 +5,10 @@ class Login extends Component {
   state = {}
   render() { 
     return (
-      <PageWrapper>
+      <PageWrapper
+      currentUser={this.props.currentUser}
+      logInOut={this.props.logInOut}
+      >
         Login
       </PageWrapper>
     )

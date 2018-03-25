@@ -10,12 +10,12 @@ import Home from './components/Home';
 class App extends Component {
   state = {
     collectionId: 2,
-    // currentUser: {
-    //   userId: '',
-    //   email: '',
-    //   firstName: '',
-    //   lastName: ''
-    // }
+    currentUser: {
+      userId: '',
+      email: '',
+      firstName: 'Jeff',
+      lastName: 'Bothe'
+    }
   }
 
   logInOut = (user) => {
@@ -26,6 +26,7 @@ class App extends Component {
 
   LoginComponent = () =>
     <Login
+      currentUser={this.state.currentUser}
       logInOut={this.logInOut}
     />;
 
