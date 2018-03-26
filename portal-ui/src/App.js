@@ -48,22 +48,25 @@ class App extends Component {
   }
 
   signUp = (newUser) => {
-    console.log(newUser)
     newUser.email = newUser.email.replace(/@|\./ig, '');
+
     fetch('http://localhost:8080/users/add-user/', {
       method: 'POST',
       body: JSON.stringify(newUser),
       headers: {'Content-Type': 'application/json'},
     })
-      .then(response => {
-        console.log(response)
-        return response.json();
-      })
-      .then(body => {
-        let currentUser = {...this.state.currentUser};
-        currentUser = {...body};
-        this.setState({currentUser});
-      })
+    .then(response => {
+      console.log(response)
+      return response.json();
+    })
+    .then(body => {
+      let currentUser = {...this.state.currentUser};
+      currentUser = {...body};
+      this.setState({currentUser});
+    })
+    .catch((error)=> {
+      console.log(error)
+    })
   }
 
   LoginComponent = () =>

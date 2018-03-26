@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import {Redirect} from 'react-router-dom';
+
 import LoginCard from './LoginCard';
 import PageWrapper from '../PageWrapper';
 
 class Login extends Component {
-  render() { 
+  render() {
+    if (this.props.currentUser) return <Redirect to="/"/>;
     return (
         <PageWrapper
           currentUser={this.props.currentUser}

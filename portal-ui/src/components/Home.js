@@ -5,7 +5,7 @@ import PageWrapper from './PageWrapper';
 
 class Home extends Component {
   render() { 
-    if (!this.props.currentUser) return <Redirect to="/Login"/>;
+    if (!this.props.currentUser) return <Redirect to="/login"/>;
     return (
       <PageWrapper
         currentUser={this.props.currentUser}
