@@ -4,10 +4,11 @@ import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Results from './components/Results';
 import Detail from './components/Detail';
 import Login from './components/login/Login';
-import Home from './components/Home';
+import Home from './components/home/Home';
 
 import './App.css';
-import './components/login/login.css'
+import './components/login/login.css';
+import './components/home/home.css';
 
 class App extends Component {
   state = {
@@ -20,9 +21,9 @@ class App extends Component {
     }
   }
 
-  logIn = (userCredentials) => {
-    userCredentials['login-email'] = userCredentials['login-email'].replace(/@|\./ig, '');
-    fetch(`http://localhost:8080/users/get-user-by-email/${userCredentials['login-email']}`)
+  logIn = (user) => {
+    user.email = user.email.replace(/@|\./ig, '');
+    fetch(`http://localhost:8080/users/get-user-by-email/${user.email}`)
       .then(response => {
         if (response.status == 404) {
           alert('user not found')

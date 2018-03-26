@@ -2,38 +2,36 @@ import React, { Component } from 'react';
 
 class LoginForm extends Component {
   state = {
-    userCredentials: {
-      "login-email": null,
-    },
+    user: {},
   }
   
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.logIn(this.state.userCredentials);
+    this.props.logIn(this.state.user);
     e.target.reset();
   }
 
   onChange = (e) => {
     console.log(e.target.name)
-    const userCredentials = {...this.state.userCredentials}
-    userCredentials[e.target.name] = e.target.value;
-    this.setState({userCredentials});
+    const user = {...this.state.user}
+    user[e.target.name] = e.target.value;
+    this.setState({user});
   }
 
   render() { 
     return (
     <form className="login-form" onSubmit={this.handleSubmit}>
       <div className="form-row">
-        <label htmlFor="login-email">Email</label>
+        <label htmlFor="email">Email</label>
         <input
-          type="email" id="login-email" name="login-email" required
+          type="email" id="email" name="email" required
           onChange={this.onChange}
         />
       </div>
       <div className="form-row">
-        <label htmlFor="login-password">Password</label>
+        <label htmlFor="password">Password</label>
         <input
-          type="password" id="login-password" name="login-password" required
+          type="password" id="password" name="password" required
           onChange={this.onChange}  
         />
       </div>

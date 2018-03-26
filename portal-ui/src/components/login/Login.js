@@ -8,16 +8,15 @@ class Login extends Component {
   render() {
     if (this.props.currentUser) return <Redirect to="/"/>;
     return (
-        <PageWrapper
-          currentUser={this.props.currentUser}
-          logOut={this.props.logOut}
-        >
-          <LoginCard
-            logIn={this.props.logIn}
-            signUp={this.props.signUp}
-          />
-        </PageWrapper>
-     
+      <PageWrapper
+        currentUser={this.props.currentUser}
+        logOut={this.props.logOut}
+      >
+        <LoginCard
+          logIn={this.props.logIn}
+          signUp={this.props.signUp}
+        />
+      </PageWrapper>
     )
   }
 }
