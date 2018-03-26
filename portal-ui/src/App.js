@@ -20,6 +20,10 @@ class App extends Component {
     }
   }
 
+  logIn = (userCredentials) => {
+    fetch('http://localhost:8080/users')
+  }
+
   logInOut = (user) => {
     let currentUser = {...this.state.currentUser};
     currentUser = user || null;

@@ -39,6 +39,18 @@ public class UserController {
         return foundUser;
     }
 
+    @GetMapping("/get-user/{email}")
+    public User findUserByEmail(@PathVariable String email) throws NotFoundException {
+
+        User foundUser = userRepository.findByEmail(email);
+
+        if (foundUser == null) {
+            throw new NotFoundException("User with Email of " + email + " was not found!");
+        }
+
+        return foundUser;
+    }
+
     @DeleteMapping("/delete-user/{id}")
     public HttpStatus deleteUserById(@PathVariable Long id) throws EmptyResultDataAccessException {
 

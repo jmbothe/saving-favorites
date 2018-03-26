@@ -24,12 +24,12 @@ class LoginCard extends Component {
       <section className="login-card">
         <header>
           <button
-            onClick={() => this.toggleLoginView(false)}
+            onClick={() => this.toggleLoginView(true)}
           >
             Log in
           </button>
           <button
-            onClick={() => this.toggleLoginView(true)}
+            onClick={() => this.toggleLoginView(false)}
           >
             Sign up
           </button>
