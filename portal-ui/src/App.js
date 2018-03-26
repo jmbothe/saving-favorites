@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import {apiKey} from './browse';
 
 import Results from './components/results/Results';
-import Detail from './components/Detail';
+import Detail from './components/detail/Detail';
 import Login from './components/login/Login';
 import Home from './components/home/Home';
 
@@ -12,11 +12,13 @@ import './App.css';
 import './components/login/login.css';
 import './components/home/home.css';
 import './components/results/results.css'
+import './components/detail/detail.css'
 
 class App extends Component {
   state = {
     collectionId: 2,
     objects: [],
+    detail: {},
     currentUser: {
       userId: '',
       email: '',
@@ -87,6 +89,12 @@ class App extends Component {
       })
   }
 
+  setDetail = (object) => {
+    let detail = {...this.state.detal};
+    detail = object;
+    this.setState({detail});
+  }
+
   LoginComponent = () =>
     <Login
       currentUser={this.state.currentUser}
@@ -107,10 +115,16 @@ class App extends Component {
       currentUser={this.state.currentUser}
       logOut={this.logOut}
       objects={this.state.objects}
+      setDetail={this.setDetail}
+      detail={this.state.detail}
     />;
 
   DetailComponent = () =>
-    <Detail />;
+    <Detail
+      currentUser={this.state.currentUser}
+      logOut={this.logOut}
+      detail={this.state.detail}
+    />;
 
   render() {
     return (

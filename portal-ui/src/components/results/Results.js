@@ -15,9 +15,9 @@ class Results extends Component {
 
   render() {
     if (this.state.redirect) return <Redirect to={`/${this.state.redirect}`}/>;
-    
+
     const cards = this.props.objects.map((item, index) => {
-      return <ResultCard imgUrl={item.PrimaryImage.Large}/>;
+      return <ResultCard setDetail={this.props.setDetail} item={item} imgUrl={item.PrimaryImage.Large}/>;
     })
 
     return (

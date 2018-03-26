@@ -1,0 +1,26 @@
+.detail-container {
+  display: flex;
+  width: 100%;
+  padding: 5%;
+}
+
+.detail-image {
+  width: 33%;
+}
+
+.detail-text {
+  width: 66%;
+}
+
+.detail-text > div:first-of-type {
+  display: flex;
+  justify-content: space-between;
+}
+
+.detail-image img {
+  width: 100%;
+}
+
+.detail-image a {
+  width: 100%;
+}
