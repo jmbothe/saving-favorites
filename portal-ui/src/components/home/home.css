@@ -14,3 +14,22 @@
 .search-container {
   width: 66%;
 }
+
+.search-container > section {
+  width: 100%;
+}
+
+.search-form {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.search-form > .form-row {
+  display: flex;
+  width: 50%;
+}
+
+.search-form > .form-row > select {
+  width: 50%;
+}
