@@ -51,33 +51,15 @@ const cultures = ['Ecuadorian','Valdivia','Ecuadorian (Valdivia style)','Native 
   'Peruvian (Nazca style)'
 ]
 
-const periods = ["Formative","late Archaic","Archaic-Early Formative","Early Formative","Early Pre-Classic",
-  "Early-Middle Formative","Middle Formative","Late Formative","Early Horizon-Early Intermediate",
-  "Initial Period-Early Horizon","Monte Albán I","Late Initial-Early Horizon","Late Preclassic",
-  "Late Formative-Early Classic","Horqueta","Archaic","Late Pre-Classic","Comala Phase","Protoclassic",
-  "Early Intermediate Phases II-III","Comala Phase","Late Preclassic-Early Classic","Early Classic",
-  "Terminal Formative-Early Classic","Early Intermediate","Period IV","late Period IV",
-  "Middle Classic","Early Intermediate Phases III-IV","Early Classic","Phases III-IV",
-  "Early Intermediate Phases IIII-IV","Early Intermediate (Phase 6)","Late Classic, Monte Albán IIIb",
-  "late Period IV-early Period V","Early Intermediate-Middle Horizon","Middle Horizon","Late Classic","Yotoco",
-  "Late Formative-Classic","Late Preclassic-Classic","Monte Albán IIIB-IV","Pre-Colombian",
-  "late Period V-early Period VI","Early Postclassic","Late Classic-Early Postclassic","Early Postclassic",
-  "Middle Horizon-Late Intermediate","Period VI","Period V–VI","late Period VI","Late Postclassic",
-  "Late Intermediate","Late Period","Late Post-Classic","Late Period V-Period VI",
-  "Late Intermediate-Late Horizon","Late Period IV–VI","Postclassic","Period V-VI",
-  "Pre-Early Conquest","Classic-Postclassic","Late Horizon","Late Period V–Period VI","Colonial"
-]
-
 const orderBy = {
   Title: 'Title',
   Culture: 'Creator',
   'Date Range End': 'DateBeginYear',
   'Date Range Begin': 'DateEndYear',
   Media: 'Calssification',
-  Period: 'Period'
 }
 
-module.exports = {apiKey, media, regions, cultures, periods, orderBy};
+module.exports = {apiKey, media, regions, cultures, orderBy};
 
 // fetch(`http://api.thewalters.org/v1/objects?collectionId=2&creator=${regions['North America & the Caribbean'].join(',')}&pageSize=100&apikey=DUpHWeGMjW4pDlIs7DmTeHMj4Wt0LlqEd7BMJiXviUx3HsLDrZ7kZRQv86C0lF0y`)
 // .then(response => {

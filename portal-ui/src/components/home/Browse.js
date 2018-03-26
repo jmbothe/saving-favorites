@@ -19,12 +19,12 @@ class Browse extends Component {
   }
 
   render() { 
-    const regionOptions = Object.entries(regions).map(item => {
-      return <option value={`${item[1].join(',')}`}>{item[0]}</option>
+    const regionOptions = Object.entries(regions).map((item, index) => {
+      return <option key={index} value={`${item[1].join(',')}`}>{item[0]}</option>
     });
 
-    const mediaOptions = media.map(item => {
-      return <option value={item}>{item}</option>
+    const mediaOptions = media.map((item, index) => {
+      return <option key={index} value={item}>{item}</option>
     });
 
     return (

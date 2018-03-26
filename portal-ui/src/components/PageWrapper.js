@@ -25,11 +25,7 @@ class PageWrapper extends Component {
           </div>
           {this.props.currentUser ? this.loggedInCard() : null}
         </header>
-
-        <section>
-          {this.props.children}
-        </section>
-
+        {this.props.children}
         <footer>
 
         </footer>

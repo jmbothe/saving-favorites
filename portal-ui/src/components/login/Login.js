@@ -1,21 +1,52 @@
 import React, { Component } from 'react';
 import {Redirect} from 'react-router-dom';
 
-import LoginCard from './LoginCard';
 import PageWrapper from '../PageWrapper';
+import LoginForm from './LoginForm';
+import SignupForm from './SignupForm';
 
 class Login extends Component {
+  state = {
+    loginView: false,
+  }
+
+  toggleLoginView = (boolean) => {
+    this.setState({loginView: boolean});
+  }
+
   render() {
     if (this.props.currentUser) return <Redirect to="/"/>;
+
+    const content = (this.state.loginView)
+    ? <LoginForm
+        logIn={this.props.logIn}
+      />
+    : <SignupForm
+        signUp={this.props.signUp}
+      />
+
     return (
       <PageWrapper
         currentUser={this.props.currentUser}
         logOut={this.props.logOut}
       >
-        <LoginCard
-          logIn={this.props.logIn}
-          signUp={this.props.signUp}
-        />
+         <section className="login-card-container">
+          <section className="login-card">
+            <header>
+              <button
+                onClick={() => this.toggleLoginView(true)}
+              >
+                Log in
+              </button>
+              <button
+                onClick={() => this.toggleLoginView(false)}
+              >
+                Sign up
+              </button>
+            </header>
+            {content}
+          </section>
+        </section>
       </PageWrapper>
     )
   }

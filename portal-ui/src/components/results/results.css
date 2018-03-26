@@ -1,0 +1,41 @@
+.results-container {
+  display: flex;
+  flex-direction: column;
+}
+
+/* .cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -8px;
+  width: 100%;
+}
+
+.result-card {
+  flex: auto;
+  height: 250px;
+  min-width: 150px;
+  margin: 0 8px 8px 0;
+} */
+
+/* .result-card:nth-child(4n+1){
+     width: 250px;
+  }
+  .result-card:nth-child(4n+2){
+     width: 325px;
+  }
+  .result-card:nth-child(4n+3){
+     width: 180px;
+  }
+  .result-card:nth-child(4n+4){
+     width: 380px;
+  } */
+
+  .cards-container {
+    columns:4;
+    column-gap: 1em;
+}
+.results-card {
+    margin-bottom:1em;
+    /* No cross browser 'break-inside' property being supported yet: */
+    display:inline-block;
+}

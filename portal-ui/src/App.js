@@ -11,6 +11,7 @@ import Home from './components/home/Home';
 import './App.css';
 import './components/login/login.css';
 import './components/home/home.css';
+import './components/results/results.css'
 
 class App extends Component {
   state = {
@@ -78,7 +79,7 @@ class App extends Component {
       .then(response => response.json())
       .then(body => {
         let objects = [...this.state.objects];
-        objects = body;
+        objects = body.Items;
         this.setState({objects});
       })
       .catch((error)=> {
@@ -102,7 +103,11 @@ class App extends Component {
     />;
 
   ResultsComponent = () =>
-    <Results />;
+    <Results
+      currentUser={this.state.currentUser}
+      logOut={this.logOut}
+      objects={this.state.objects}
+    />;
 
   DetailComponent = () =>
     <Detail />;

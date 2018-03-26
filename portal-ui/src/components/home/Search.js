@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import {cultures, periods, media, orderBy} from '../../browse'
+import {cultures, media, orderBy} from '../../browse'
 
 class Search extends Component {
   state = {
@@ -24,20 +24,16 @@ class Search extends Component {
   }
 
   render() { 
-    const orderByOptions = Object.entries(orderBy).map(item => {
-      return <option value={item[1]}>{item[0]}</option>
+    const orderByOptions = Object.entries(orderBy).map((item, index) => {
+      return <option key={index} value={item[1]}>{item[0]}</option>
     });
 
-    const cultureOptions = cultures.map(item => {
-      return <option value={item}>{item}</option>
+    const cultureOptions = cultures.map((item, index) => {
+      return <option key={index} value={item}>{item}</option>
     });
-
-    const periodOptions = periods.map(item => {
-      return <option value={item}>{item}</option>
-    });
-
-    const mediaOptions = media.map(item => {
-      return <option value={item}>{item}</option>
+    
+    const mediaOptions = media.map((item, index) => {
+      return <option key={index} value={item}>{item}</option>
     });
 
     return (
@@ -70,13 +66,6 @@ class Search extends Component {
               <select id="Creator" name="Creator" onChange={this.onChange}>
                 <option value="" selected disabled hidden>Choose here</option>
                 {cultureOptions}
-              </select>
-            </div>
-            <div className="form-row">
-              <label htmlFor="Period">Period</label>
-              <select id="Period" name="Period" onChange={this.onChange}>
-                <option value="" selected disabled hidden>Choose here</option>
-                {periodOptions}
               </select>
             </div>
             <div className="form-row">
