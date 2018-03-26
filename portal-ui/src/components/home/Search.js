@@ -4,7 +4,7 @@ class Search extends Component {
   state = {}
   render() { 
     return (
-      <section>
+      <section className="search-container">
         <h3>Search</h3>
       </section>
     )

@@ -6,3 +6,11 @@
 .browse-search-container {
   display: flex;
 }
+
+.browse-container {
+  width: 33%;
+}
+
+.search-container {
+  width: 66%;
+}
