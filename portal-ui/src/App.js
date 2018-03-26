@@ -85,7 +85,6 @@ class App extends Component {
     fetch(`http://api.thewalters.org/v1/objects?page=${Page}&collectionId=2&apikey=${apiKey}&${queryString}`)
       .then(response => response.json())
       .then(body => {
-        console.log(body)
         let objects = [...this.state.objects];
         objects = body.Items;
         this.setState({queryString, objects, Page: body.Page, NextPage: body.NextPage, PrevPage: body.PrevPage});
@@ -104,7 +103,6 @@ class App extends Component {
     })
     .then(response => response.json())
     .then(body => {
-      console.log(body)
       let currentUser = {...this.state.currentUser};
       currentUser.favorites.push(body);
       this.setState({currentUser});
@@ -114,8 +112,23 @@ class App extends Component {
     })
   }
 
-  deleteFavorite = () => {
-
+  removeFavorite = (id) => {
+    fetch(`http://localhost:8080/users/delete-favorite/${id}`, {
+      method: 'DELETE'
+    })
+    .then(response => {
+      if (response.status == 404) {
+        alert('unable to delete favorite')
+        throw new Error(response.status)
+      } else {
+        let currentUser = {...this.state.currentUser};
+        currentUser.favorites = currentUser.favorites.filter(item => item.favoriteId != id);
+        this.setState({currentUser});
+      }
+    })
+    .catch((error)=> {
+      console.log(error)
+    })
   }
 
   setDetail = (object) => {
@@ -159,6 +172,7 @@ class App extends Component {
       logOut={this.logOut}
       detail={this.state.detail}
       addFavorite={this.addFavorite}
+      removeFavorite={this.removeFavorite}
     />;
 
   render() {

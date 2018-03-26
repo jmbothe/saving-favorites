@@ -15,6 +15,14 @@ class Detail extends Component {
   render() {
     if (this.state.redirect) return <Redirect to={`/${this.state.redirect}`}/>;
 
+    const fav =
+      this.props.currentUser.favorites.find(item => item.itemId == this.props.detail.ObjectID);
+
+    const button =
+      fav
+        ? <button onClick={() => this.props.removeFavorite(fav.favoriteId)}>Remove From Favorites</button>
+        : <button onClick={this.props.addFavorite}>Add To Favorites</button>;
+
     return (
       <PageWrapper
         toggleRedirect={this.toggleRedirect}
@@ -30,7 +38,7 @@ class Detail extends Component {
           <section className="detail-text">
           <div>
             <h2>{this.props.detail.Title || null}</h2>
-            <button onClick={this.props.addFavorite}>Add To Favorites</button>
+            {button}
           </div>
             <h3>{this.props.detail.Culture || null}</h3>
             <p>{this.props.detail.Period || null} {this.props.detail.DateText || null}</p>
