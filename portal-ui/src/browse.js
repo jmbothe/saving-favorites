@@ -1,3 +1,5 @@
+const apiKey = 'DUpHWeGMjW4pDlIs7DmTeHMj4Wt0LlqEd7BMJiXviUx3HsLDrZ7kZRQv86C0lF0y';
+
 const media = ['Ceramics', 'Gold, Silver & Jewelry', 'Ivory & Bone', 'Metal', 'Mosaics & Cosmati',
   'Pearl, Horn, Coral & Shell', 'Precious Stones & Gems', 'Resin, Wax & Composite', 'Sculpture',
   'Stone', 'Textiles', 'Wood',
@@ -75,7 +77,7 @@ const orderBy = {
   Period: 'Period'
 }
 
-module.exports = {media, regions, cultures, periods, orderBy};
+module.exports = {apiKey, media, regions, cultures, periods, orderBy};
 
 // fetch(`http://api.thewalters.org/v1/objects?collectionId=2&creator=${regions['North America & the Caribbean'].join(',')}&pageSize=100&apikey=DUpHWeGMjW4pDlIs7DmTeHMj4Wt0LlqEd7BMJiXviUx3HsLDrZ7kZRQv86C0lF0y`)
 // .then(response => {

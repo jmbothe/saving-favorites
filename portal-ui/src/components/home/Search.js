@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import {cultures, periods, regions, media, orderBy} from '../../browse'
+import {cultures, periods, media, orderBy} from '../../browse'
 
 class Search extends Component {
   state = {
