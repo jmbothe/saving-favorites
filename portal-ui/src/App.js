@@ -21,7 +21,16 @@ class App extends Component {
   }
 
   logIn = (userCredentials) => {
-    fetch('http://localhost:8080/users')
+    userCredentials['login-email'] = userCredentials['login-email'].replace(/@|\./ig, '');
+    fetch(`http://localhost:8080/users/get-user-by-email/${userCredentials['login-email']}`)
+      .then(response => {
+        return response.json();
+      })
+      .then(body => {
+        let currentUser = {...this.state.currentUser};
+        currentUser = {...body};
+        this.setState({currentUser});
+      })
   }
 
   logInOut = (user) => {
@@ -34,6 +43,7 @@ class App extends Component {
     <Login
       currentUser={this.state.currentUser}
       logInOut={this.logInOut}
+      logIn={this.logIn}
     />;
 
   HomeComponent = () =>

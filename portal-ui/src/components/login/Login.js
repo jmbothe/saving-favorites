@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
-import PageWrapper from '../PageWrapper'
 import LoginCard from './LoginCard';
+import MainHeader from '../MainHeader';
 
 class Login extends Component {
-  state = {}
   render() { 
     return (
-      <PageWrapper
-      currentUser={this.props.currentUser}
-      logInOut={this.props.logInOut}
-      >
-        <LoginCard />
-      </PageWrapper>
+      <div className="page-wrapper">
+        <MainHeader
+          currentUser={this.props.currentUser}
+          logInOut={this.props.logInOut}
+        />
+        <section>
+          <LoginCard
+            logIn={this.props.logIn}
+          />
+        </section>
+      </div>
     )
   }
 }

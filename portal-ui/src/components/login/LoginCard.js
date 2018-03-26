@@ -15,6 +15,7 @@ class LoginCard extends Component {
   render() { 
     const content = (this.state.loginView)
     ? <LoginForm
+        logIn={this.props.logIn}
       />
     : <SignupForm
       />
