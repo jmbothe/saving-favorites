@@ -41,12 +41,14 @@ class Browse extends Component {
         <div>
           <label htmlFor="Creator">Browse by Region</label>
           <select name="Creator" onChange={this.handleChange}>
+            <option value="" selected disabled hidden>Choose here</option>
             {regionOptions}
           </select>
         </div>
         <div>
           <label htmlFor="Creator">Browse by Media</label>
           <select name="Classification" onChange={this.handleChange}>
+            <option value="" selected disabled hidden>Choose here</option>
             {mediaOptions}
           </select>
         </div>

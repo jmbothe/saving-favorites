@@ -33,7 +33,10 @@ class Home extends Component {
               currentUser={this.props.currentUser}
               toggleRedirect={this.toggleRedirect}
             />
-            <Search />
+            <Search
+              toggleRedirect={this.toggleRedirect}
+              getObjects={this.props.getObjects}
+            />
           </section>
         </section>
       </PageWrapper>
