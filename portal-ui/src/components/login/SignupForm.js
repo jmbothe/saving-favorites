@@ -1,28 +1,55 @@
 import React, { Component } from 'react';
 
 class SignupForm extends Component {
-  state = {}
+  state = {
+    user: {},
+  }
+  
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.props.signUp(this.state.user);
+    e.target.reset();
+  }
+
+  onChange = (e) => {
+    const user = {...this.state.user}
+    user[e.target.name] = e.target.value;
+    this.setState({user});
+  }
+
   render() { 
     return (
-      <form className="signup-form">
+      <form className="signup-form" onSubmit={this.handleSubmit}>
         <div className="form-row">
-          <label htmlFor="first-name">First Name</label>
-          <input type="text" id="first-name" name="first-name" required />
+          <label htmlFor="firstName">First Name</label>
+          <input
+            type="text" id="firstName" name="firstName" required
+            onChange={this.onChange}
+            />
         </div>
         <div className="form-row">
-          <label htmlFor="last-name">Last Name</label>
-          <input type="text" id="last-name" name="last-name" required />
+          <label htmlFor="lastName">Last Name</label>
+          <input
+            type="text" id="lastName" name="lastName" required
+            onChange={this.onChange}
+          />
         </div>
         <div className="form-row">
-          <label htmlFor="signup-email">Email</label>
-          <input type="email" id="signup-email" name="signup-email" required />
+          <label htmlFor="email">Email</label>
+          <input
+            type="email" id="email" name="email" required
+            onChange={this.onChange}
+          />
         </div>
+        {/* <div className="form-row">
+          <label htmlFor="password">Password</label>
+          <input
+            type="password" id="password" name="password" required
+            onChange={this.onChange}
+          />
+        </div> */}
         <div className="form-row">
-          <label htmlFor="signup-password">Password</label>
-          <input type="password" id="signup-password" name="signup-password" required />
-        </div>
-        <div className="form-row">
-          <input type="submit" id="signup-submit" />
+          <input type="submit" id="submit" />
         </div>
       </form>
     )

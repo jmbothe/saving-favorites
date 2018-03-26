@@ -24,6 +24,39 @@ class App extends Component {
     userCredentials['login-email'] = userCredentials['login-email'].replace(/@|\./ig, '');
     fetch(`http://localhost:8080/users/get-user-by-email/${userCredentials['login-email']}`)
       .then(response => {
+        if (response.status == 404) {
+          alert('user not found')
+          throw new Error(response.status)
+        } else {
+          return response.json();
+        }
+      })
+      .then(body => {
+        let currentUser = {...this.state.currentUser};
+        currentUser = {...body};
+        this.setState({currentUser});
+      })
+      .catch((error)=> {
+        console.log(error)
+      })
+  }
+
+  logOut = () => {
+    let currentUser = {...this.state.currentUser};
+    currentUser = null;
+    this.setState({currentUser});
+  }
+
+  signUp = (newUser) => {
+    console.log(newUser)
+    newUser.email = newUser.email.replace(/@|\./ig, '');
+    fetch('http://localhost:8080/users/add-user/', {
+      method: 'POST',
+      body: JSON.stringify(newUser),
+      headers: {'Content-Type': 'application/json'},
+    })
+      .then(response => {
+        console.log(response)
         return response.json();
       })
       .then(body => {
@@ -33,23 +66,18 @@ class App extends Component {
       })
   }
 
-  logInOut = (user) => {
-    let currentUser = {...this.state.currentUser};
-    currentUser = user || null;
-    this.setState({currentUser});
-  }
-
   LoginComponent = () =>
     <Login
       currentUser={this.state.currentUser}
-      logInOut={this.logInOut}
+      logOut={this.logOut}
       logIn={this.logIn}
+      signUp={this.signUp}
     />;
 
   HomeComponent = () =>
     <Home
       currentUser={this.state.currentUser}
-      logInOut={this.logInOut}
+      logOut={this.logOut}
     />;
 
   ResultsComponent = () =>

@@ -7,7 +7,7 @@ class PageWrapper extends Component {
       <span>
         Logged in as {this.props.currentUser.firstName} {this.props.currentUser.lastName}
       </span>
-      <button onClick={() => this.props.logInOut()}>
+      <button onClick={() => this.props.logOut()}>
         log out
       </button>
     </div>

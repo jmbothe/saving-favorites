@@ -1,21 +1,20 @@
 import React, { Component } from 'react';
 import LoginCard from './LoginCard';
-import MainHeader from '../MainHeader';
+import PageWrapper from '../PageWrapper';
 
 class Login extends Component {
   render() { 
     return (
-      <div className="page-wrapper">
-        <MainHeader
+        <PageWrapper
           currentUser={this.props.currentUser}
-          logInOut={this.props.logInOut}
-        />
-        <section>
+          logOut={this.props.logOut}
+        >
           <LoginCard
             logIn={this.props.logIn}
+            signUp={this.props.signUp}
           />
-        </section>
-      </div>
+        </PageWrapper>
+     
     )
   }
 }

@@ -18,6 +18,7 @@ class LoginCard extends Component {
         logIn={this.props.logIn}
       />
     : <SignupForm
+        signUp={this.props.signUp}
       />
 
 

@@ -9,7 +9,7 @@ class Home extends Component {
     return (
       <PageWrapper
         currentUser={this.props.currentUser}
-        logInOut={this.props.logInOut}
+        logOut={this.props.logOut}
       >
         Home
       </PageWrapper>
