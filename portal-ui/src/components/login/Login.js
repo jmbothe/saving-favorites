@@ -15,7 +15,7 @@ class Login extends Component {
   }
 
   render() {
-    if (this.props.currentUser) return <Redirect to="/"/>;
+    if (this.props.currentUser) return <Redirect to="/home"/>;
 
     const content = (this.state.loginView)
     ? <LoginForm

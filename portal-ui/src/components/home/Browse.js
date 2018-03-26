@@ -6,14 +6,16 @@ import {regions, media} from '../../browse.js'
 class Browse extends Component {
   handleChange = (e) => {
     const queryString = `${e.target.name}=${e.target.value}`
-    this.props.getObjects(queryString);
+    this.props.getObjects(queryString, 1);
     this.props.toggleRedirect('results');
   }
 
   getFavorites = () => {
     const queryString = `objectId=${this.props.currentUser.favorites.map(item => {
       return item.itemId;
-    }).join(',')}`
+    })
+    .join(',')}`
+
     this.props.getObjects(queryString);
     this.props.toggleRedirect('results');
   }

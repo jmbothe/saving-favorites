@@ -30,7 +30,7 @@ class Detail extends Component {
           <section className="detail-text">
           <div>
             <h2>{this.props.detail.Title || null}</h2>
-            <button>Add To Favorites</button>
+            <button onClick={this.props.addFavorite}>Add To Favorites</button>
           </div>
             <h3>{this.props.detail.Culture || null}</h3>
             <p>{this.props.detail.Period || null} {this.props.detail.DateText || null}</p>

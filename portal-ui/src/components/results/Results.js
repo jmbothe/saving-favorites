@@ -13,6 +13,14 @@ class Results extends Component {
     this.setState({redirect: route});
   }
 
+  decrementPage = () => {
+    this.props.getObjects(this.props.queryString, this.props.page - 1)
+  }
+
+  incrementPage = () => {
+    this.props.getObjects(this.props.queryString, this.props.page + 1)
+  }
+
   render() {
     if (this.state.redirect) return <Redirect to={`/${this.state.redirect}`}/>;
 
@@ -27,7 +35,14 @@ class Results extends Component {
         logOut={this.props.logOut}
       >
         <section className="results-container">
-          <header>Navigate</header>
+          <header>
+            <button onClick={this.decrementPage} disabled={!this.props.prevPage}>
+              Prev
+            </button>
+            <button onClick={this.incrementPage} disabled={!this.props.nextPage}>
+              Next
+            </button>
+          </header>
           <section className="cards-container">
             {cards}
           </section>

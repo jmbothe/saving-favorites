@@ -19,12 +19,17 @@ class App extends Component {
     collectionId: 2,
     objects: [],
     detail: {},
-    currentUser: {
-      userId: '',
-      email: '',
-      firstName: 'Jeff',
-      lastName: 'Bothe'
-    }
+    Page: 1,
+    queryString: null,
+    NextPage: null,
+    PrevPage: null,
+    // currentUser: {
+    //   userId: '',
+    //   email: '',
+    //   firstName: '',
+    //   lastName: '',
+    //   favorites: []
+    // }
   }
 
   logIn = (user) => {
@@ -76,17 +81,41 @@ class App extends Component {
     })
   }
 
-  getObjects = (queryString) => {
-    fetch(`http://api.thewalters.org/v1/objects?collectionId=2&apikey=${apiKey}&${queryString}`)
+  getObjects = (queryString, Page) => {
+    fetch(`http://api.thewalters.org/v1/objects?page=${Page}&collectionId=2&apikey=${apiKey}&${queryString}`)
       .then(response => response.json())
       .then(body => {
+        console.log(body)
         let objects = [...this.state.objects];
         objects = body.Items;
-        this.setState({objects});
+        this.setState({queryString, objects, Page: body.Page, NextPage: body.NextPage, PrevPage: body.PrevPage});
       })
       .catch((error)=> {
         console.log(error)
       })
+  }
+
+  addFavorite = () => {
+    const favorite = {userId: this.state.currentUser.userId, itemId: this.state.detail.ObjectID}
+    fetch('http://localhost:8080/users/add-favorite/', {
+      method: 'POST',
+      body: JSON.stringify(favorite),
+      headers: {'Content-Type': 'application/json'},
+    })
+    .then(response => response.json())
+    .then(body => {
+      console.log(body)
+      let currentUser = {...this.state.currentUser};
+      currentUser.favorites.push(body);
+      this.setState({currentUser});
+    })
+    .catch((error)=> {
+      console.log(error)
+    })
+  }
+
+  deleteFavorite = () => {
+
   }
 
   setDetail = (object) => {
@@ -117,6 +146,11 @@ class App extends Component {
       objects={this.state.objects}
       setDetail={this.setDetail}
       detail={this.state.detail}
+      page={this.state.Page}
+      getObjects={this.getObjects}
+      queryString={this.state.queryString}
+      nextPage={this.state.NextPage}
+      prevPage={this.state.PrevPage}
     />;
 
   DetailComponent = () =>
@@ -124,13 +158,14 @@ class App extends Component {
       currentUser={this.state.currentUser}
       logOut={this.logOut}
       detail={this.state.detail}
+      addFavorite={this.addFavorite}
     />;
 
   render() {
     return (
       <Router>
         <Switch>
-          <Route exact path="/" render={this.HomeComponent}/>
+          <Route exact path="/home" render={this.HomeComponent}/>
           <Route exact path="/login" render={this.LoginComponent}/>
           <Route exact path="/results" render={this.ResultsComponent} />
           <Route exact path="/detail" render={this.DetailComponent} />

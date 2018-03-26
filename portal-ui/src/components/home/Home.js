@@ -16,6 +16,7 @@ class Home extends Component {
 
   render() { 
     if (this.state.redirect) return <Redirect to={`/${this.state.redirect}`}/>;
+    if (!this.props.currentUser) return <Redirect to={'/login'}/>;
 
     return (
       <PageWrapper
