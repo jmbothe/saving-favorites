@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class PageWrapper extends Component {
 
   loggedInCard = () =>
-    <div className="logged-in-card">
+    <div className="heading-logout-container">
       <span>
         Logged in as {this.props.currentUser.firstName} {this.props.currentUser.lastName}
       </span>

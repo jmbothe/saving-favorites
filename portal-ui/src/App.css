@@ -5,15 +5,25 @@
 
 body {
   width: 100vw;
+  min-height: 100vh;
 }
 
 #root {
   width: 100%;
+  min-height: 100vh;
 }
 
 .page-wrapper {
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
+}
+
+.page-wrapper > section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
 }
 
 .page-wrapper > header {
@@ -22,7 +32,7 @@ body {
   padding: 0 2%;
 }
 
-.logged-in-card {
+.heading-logout-container {
   display: flex;
   flex-direction: column;
   justify-content: center;

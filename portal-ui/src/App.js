@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import './App.css';
 import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 import Results from './components/Results';
 import Detail from './components/Detail';
-import Login from './components/Login';
+import Login from './components/login/Login';
 import Home from './components/Home';
+
+import './App.css';
+import './components/login/login.css'
 
 class App extends Component {
   state = {

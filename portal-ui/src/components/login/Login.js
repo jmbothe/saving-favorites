@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import PageWrapper from './PageWrapper'
+import PageWrapper from '../PageWrapper'
+import LoginCard from './LoginCard';
 
 class Login extends Component {
   state = {}
@@ -9,7 +10,7 @@ class Login extends Component {
       currentUser={this.props.currentUser}
       logInOut={this.props.logInOut}
       >
-        Login
+        <LoginCard />
       </PageWrapper>
     )
   }

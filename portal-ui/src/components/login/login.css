@@ -1,0 +1,14 @@
+.login-card {
+  display: flex;
+  flex-direction: column;
+  width: 33%;
+}
+
+.login-card > header {
+  display: flex;
+}
+
+.login-card > header > button {
+  width: 50%;
+  text-align: center;
+}
