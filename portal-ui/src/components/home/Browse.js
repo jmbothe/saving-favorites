@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Redirect} from 'react-router-dom';
 
 import {regions, media} from '../../browse.js'
 
@@ -6,6 +7,7 @@ class Browse extends Component {
   handleChange = (e) => {
     const queryString = `${e.target.name}=${e.target.value}`
     this.props.getObjects(queryString);
+    this.props.toggleRedirect('results');
   }
 
   getFavorites = () => {
@@ -13,6 +15,7 @@ class Browse extends Component {
       return item.itemId;
     }).join(',')}`
     this.props.getObjects(queryString);
+    this.props.toggleRedirect('results');
   }
 
   render() { 
@@ -36,11 +39,13 @@ class Browse extends Component {
           </button>  
         </div>
         <div>
+          <label htmlFor="Creator">Browse by Region</label>
           <select name="Creator" onChange={this.handleChange}>
             {regionOptions}
           </select>
         </div>
         <div>
+          <label htmlFor="Creator">Browse by Media</label>
           <select name="Classification" onChange={this.handleChange}>
             {mediaOptions}
           </select>

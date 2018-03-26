@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
-import Results from './components/Results';
+import {apiKey} from './browse';
+
+import Results from './components/results/Results';
 import Detail from './components/Detail';
 import Login from './components/login/Login';
 import Home from './components/home/Home';
@@ -13,6 +15,7 @@ import './components/home/home.css';
 class App extends Component {
   state = {
     collectionId: 2,
+    objects: [],
     currentUser: {
       userId: '',
       email: '',
@@ -70,6 +73,19 @@ class App extends Component {
     })
   }
 
+  getObjects = (queryString) => {
+    fetch(`http://api.thewalters.org/v1/objects?collectionId=2&apikey=${apiKey}&${queryString}`)
+      .then(response => response.json())
+      .then(body => {
+        let objects = [...this.state.objects];
+        objects = body;
+        this.setState({objects});
+      })
+      .catch((error)=> {
+        console.log(error)
+      })
+  }
+
   LoginComponent = () =>
     <Login
       currentUser={this.state.currentUser}
@@ -82,6 +98,7 @@ class App extends Component {
     <Home
       currentUser={this.state.currentUser}
       logOut={this.logOut}
+      getObjects={this.getObjects}
     />;
 
   ResultsComponent = () =>

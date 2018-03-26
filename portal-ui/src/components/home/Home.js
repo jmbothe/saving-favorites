@@ -1,36 +1,27 @@
 import React, { Component } from 'react';
 import {Redirect} from 'react-router-dom';
 
-import {apiKey} from '../../browse';
-
 import PageWrapper from '../PageWrapper';
 import Browse from './Browse';
 import Search from './Search';
 
 class Home extends Component {
   state = {
-    objects: []
+    redirect: '',
   }
 
-  getObjects = (queryString) => {
-    fetch(`http://api.thewalters.org/v1/objects?collectionId=2&apikey=${apiKey}&${queryString}`)
-      .then(response => response.json())
-      .then(body => {
-        let objects = [...this.state.objects];
-        objects = body;
-        this.setState({objects});
-      })
-      .catch((error)=> {
-        console.log(error)
-      })
+  toggleRedirect = (route) => {
+    this.setState({redirect: route});
   }
 
   render() { 
-    if (!this.props.currentUser) return <Redirect to="/login"/>;
+    if (this.state.redirect) return <Redirect to={`/${this.state.redirect}`}/>;
+
     return (
       <PageWrapper
         currentUser={this.props.currentUser}
         logOut={this.props.logOut}
+        toggleRedirect={this.toggleRedirect}
       >
         <section className="home-container">
           <p>
@@ -38,8 +29,9 @@ class Home extends Component {
           </p>
           <section className="browse-search-container">
             <Browse
-              getObjects={this.getObjects}
+              getObjects={this.props.getObjects}
               currentUser={this.props.currentUser}
+              toggleRedirect={this.toggleRedirect}
             />
             <Search />
           </section>

@@ -63,16 +63,19 @@ class Search extends Component {
               </select>
             </div>
             <div className="form-row">
-            <label htmlFor="Classification">Media</label>
+              <label htmlFor="Classification">Media</label>
               <select id="Classification" name="Classification">
                 {mediaOptions}
               </select>
             </div>
             <div className="form-row">
-            <label htmlFor="OrderBy">Order By</label>
+              <label htmlFor="OrderBy">Order By</label>
               <select id="OrderBy" name="OrderBy">
                 {orderByOptions}
               </select>
+            </div>
+            <div className="form-row">
+              <input type="submit" id="search-submit" />
             </div>
           </form>
         </section>
