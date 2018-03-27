@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Redirect} from 'react-router-dom';
 
-import PageWrapper from '../PageWrapper'
+import PageWrapper from '../PageWrapper';
 
 class Detail extends Component {
   state = {
