@@ -34,11 +34,13 @@ class Login extends Component {
           <section className="login-card">
             <header>
               <button
+                className={this.state.loginView ? '' : 'tab-fade' }
                 onClick={() => this.toggleLoginView(true)}
               >
                 Log in
               </button>
               <button
+                className={this.state.loginView ? 'tab-fade' : '' }
                 onClick={() => this.toggleLoginView(false)}
               >
                 Sign up

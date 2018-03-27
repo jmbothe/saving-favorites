@@ -35,7 +35,7 @@ class LoginForm extends Component {
         />
       </div>
       <div className="form-row">
-        <input type="submit" id="login-submit" />
+        <input type="submit" id="submit" />
       </div>
     </form>
   )

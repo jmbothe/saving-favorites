@@ -64,21 +64,21 @@ class Search extends Component {
             <div className="form-row">
               <label htmlFor="Creator">Culture:</label>
               <select id="Creator" name="Creator" onChange={this.onChange}>
-                <option value="" selected disabled hidden>Choose here</option>
+                <option value="" selected></option>
                 {cultureOptions}
               </select>
             </div>
             <div className="form-row">
               <label htmlFor="Classification">Media:</label>
               <select id="Classification" name="Classification" onChange={this.onChange}>
-                <option value="" selected disabled hidden>Choose here</option>
+                <option value="" selected></option>
                 {mediaOptions}
               </select>
             </div>
             <div className="form-row">
               <label htmlFor="OrderBy">Order By:</label>
               <select id="OrderBy" name="OrderBy" onChange={this.onChange}>
-                <option value="" selected disabled hidden>Choose here</option>
+                <option value="" selected></option>
                 {orderByOptions}
               </select>
             </div>

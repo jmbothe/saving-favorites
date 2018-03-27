@@ -52,7 +52,6 @@ const cultures = ['Ecuadorian','Valdivia','Ecuadorian (Valdivia style)','Native 
 ]
 
 const orderBy = {
-  Title: 'Title',
   Culture: 'Creator',
   'Date Range End': 'DateBeginYear',
   'Date Range Begin': 'DateEndYear',

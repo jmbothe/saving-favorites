@@ -26,12 +26,6 @@
   cursor: pointer;
 }
 
-.results-container > header > button:disabled,
-.results-container > footer > button:disabled {
-  opacity: 0.5;
-  cursor: default;
-}
-
 .prev-button {
   margin-right: 2%;
 }
@@ -43,4 +37,9 @@
 .result-card {
     display: block;
     padding-bottom: 5%;
+}
+
+.result-card img {
+  border-radius: 3px;
+  box-shadow: 8px 8px 10px #ccc;
 }

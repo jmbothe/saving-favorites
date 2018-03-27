@@ -36,10 +36,10 @@ class Detail extends Component {
             </a>
           </section>
           <section className="detail-text">
-          <div>
-            <h2>{this.props.detail.Title || null}</h2>
-            {button}
-          </div>
+            <div>
+              <h2>{this.props.detail.Title || null}</h2>
+              {button}
+            </div>
             <h3>{this.props.detail.Culture || null}</h3>
             <p>{this.props.detail.Period || null} {this.props.detail.DateText || null}</p>
             <p>{this.props.detail.Medium || null}</p>
