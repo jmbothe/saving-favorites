@@ -26,8 +26,7 @@ class App extends Component {
   }
 
   logIn = user => {
-    user.email = user.email.replace(/@|\./ig, '');
-    fetch(`http://localhost:8080/users/get-user-by-email/${user.email}`)
+    fetch(`http://localhost:8080/users/get-user-by-email/${user.email}/`)
       .then(response => {
         if (response.status >= 200 && response.status < 300) {
           return response.json();
@@ -54,8 +53,6 @@ class App extends Component {
   }
 
   signUp = newUser => {
-    newUser.email = newUser.email.replace(/@|\./ig, '');
-
     fetch('http://localhost:8080/users/add-user/', {
       method: 'POST',
       body: JSON.stringify(newUser),

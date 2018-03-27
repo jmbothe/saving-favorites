@@ -1,6 +1,7 @@
 package com.example.usersapi.models;
 
 import lombok.*;
+import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
 import java.util.List;
@@ -15,6 +16,7 @@ public class User {
     @Column(name = "USER_ID")
     private Long userId;
 
+    @Email
     @Column(name = "EMAIL")
     private String email;
 
