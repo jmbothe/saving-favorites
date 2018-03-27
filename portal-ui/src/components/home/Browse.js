@@ -32,25 +32,23 @@ class Browse extends Component {
     return (
     <section className="browse-container">
       <header>
-        <h3>Browse</h3>
+        <h2>Browse Collection</h2>
       </header>
-      <div>
+      <div className="browse-inputs">
         <div>
           <button onClick={this.getFavorites}>
             View Your Favorites
           </button>  
         </div>
         <div>
-          <label htmlFor="Creator">Browse by Region</label>
           <select name="Creator" onChange={this.handleChange}>
-            <option value="" selected disabled hidden>Choose here</option>
+            <option value="" selected disabled hidden>Browse by Region</option>
             {regionOptions}
           </select>
         </div>
         <div>
-          <label htmlFor="Creator">Browse by Media</label>
           <select name="Classification" onChange={this.handleChange}>
-            <option value="" selected disabled hidden>Choose here</option>
+            <option value="" selected disabled hidden>Browse by Medium</option>
             {mediaOptions}
           </select>
         </div>

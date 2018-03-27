@@ -83,11 +83,24 @@ class App extends Component {
 
   getObjects = (queryString, Page) => {
     fetch(`http://api.thewalters.org/v1/objects?page=${Page}&collectionId=2&apikey=${apiKey}&${queryString}`)
-      .then(response => response.json())
+      .then(response => {
+        if (response.status == 404) {
+          alert('No objects found based on your search criteria. Try broadening your search')
+          throw new Error(response.status)
+        } else {
+          return response.json();
+        }
+      })
       .then(body => {
         let objects = [...this.state.objects];
         objects = body.Items;
-        this.setState({queryString, objects, Page: body.Page, NextPage: body.NextPage, PrevPage: body.PrevPage});
+        this.setState({
+          queryString,
+          objects,
+          Page: body.Page,
+          NextPage:body.NextPage,
+          PrevPage: body.PrevPage
+        });
       })
       .catch((error)=> {
         console.log(error)

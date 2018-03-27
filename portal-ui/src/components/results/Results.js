@@ -30,7 +30,7 @@ class Results extends Component {
           key={index}
           setDetail={this.props.setDetail}
           item={item}
-          imgUrl={item.PrimaryImage.Large}
+          imgUrl={`${item.PrimaryImage.Raw}?width=300`}
         />
       );
     })
@@ -43,16 +43,24 @@ class Results extends Component {
       >
         <section className="results-container">
           <header>
-            <button onClick={this.decrementPage} disabled={!this.props.prevPage}>
-              Prev
+            <button className="prev-button" onClick={this.decrementPage} disabled={!this.props.prevPage}>
+            {`<`}
             </button>
-            <button onClick={this.incrementPage} disabled={!this.props.nextPage}>
-              Next
+            <button className="next-button"onClick={this.incrementPage} disabled={!this.props.nextPage}>
+            {`>`}
             </button>
           </header>
           <section className="cards-container">
             {cards}
           </section>
+          <footer>
+            <button className="prev-button" onClick={this.decrementPage} disabled={!this.props.prevPage}>
+            {`<`}
+            </button>
+            <button className="next-button"onClick={this.incrementPage} disabled={!this.props.nextPage}>
+            {`>`}
+            </button>
+          </footer>
         </section>
       </PageWrapper>
     )

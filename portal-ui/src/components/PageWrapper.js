@@ -21,7 +21,7 @@ class PageWrapper extends Component {
       <div className="page-wrapper">
         <header>
           <div>
-            <h1>Walters Art Museum: Ancient Americas Collection</h1>
+            <h1>The Walters Art Museum: Ancient Americas Collection</h1>
           </div>
           {this.props.currentUser ? this.loggedInCard() : null}
         </header>

@@ -39,19 +39,19 @@ class Search extends Component {
     return (
       <section className="search-container">
         <header>
-          <h3>Search</h3>
+          <h2>Search Collection</h2>
         </header>
         <section>
           <form className="search-form" onSubmit={this.handleSubmit}>
             <div className="form-row">
-              <label htmlFor="Title">Title</label>
+              <label htmlFor="Title">Title:</label>
               <input
                 type="text" id="Title" name="Title"
                 onChange={this.onChange}
                 />
             </div>
             <div className="form-row">
-              <label htmlFor="DateBeginYear">Date Range</label>
+              <label htmlFor="DateBeginYear">Date Range:</label>
               <input
                 type="number" id="DateBeginYear" name="DateBeginYear" min="-3000" max="1550"
                 onChange={this.onChange}
@@ -62,21 +62,21 @@ class Search extends Component {
               />
             </div>
             <div className="form-row">
-              <label htmlFor="Creator">Culture</label>
+              <label htmlFor="Creator">Culture:</label>
               <select id="Creator" name="Creator" onChange={this.onChange}>
                 <option value="" selected disabled hidden>Choose here</option>
                 {cultureOptions}
               </select>
             </div>
             <div className="form-row">
-              <label htmlFor="Classification">Media</label>
+              <label htmlFor="Classification">Media:</label>
               <select id="Classification" name="Classification" onChange={this.onChange}>
                 <option value="" selected disabled hidden>Choose here</option>
                 {mediaOptions}
               </select>
             </div>
             <div className="form-row">
-              <label htmlFor="OrderBy">Order By</label>
+              <label htmlFor="OrderBy">Order By:</label>
               <select id="OrderBy" name="OrderBy" onChange={this.onChange}>
                 <option value="" selected disabled hidden>Choose here</option>
                 {orderByOptions}
