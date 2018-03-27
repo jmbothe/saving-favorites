@@ -22,25 +22,18 @@ class App extends Component {
     Page: 1,
     queryString: null,
     NextPage: null,
-    PrevPage: null,
-    // currentUser: {
-    //   userId: '',
-    //   email: '',
-    //   firstName: '',
-    //   lastName: '',
-    //   favorites: []
-    // }
+    PrevPage: null
   }
 
-  logIn = (user) => {
+  logIn = user => {
     user.email = user.email.replace(/@|\./ig, '');
     fetch(`http://localhost:8080/users/get-user-by-email/${user.email}`)
       .then(response => {
-        if (response.status == 404) {
-          alert('user not found')
-          throw new Error(response.status)
-        } else {
+        if (response.status >= 200 && response.status < 300) {
           return response.json();
+        } else {
+          alert('There was a problem logging in. Please make sure your email and password are correct.')
+          throw new Error(response.status);
         }
       })
       .then(body => {
@@ -48,9 +41,7 @@ class App extends Component {
         currentUser = {...body};
         this.setState({currentUser});
       })
-      .catch((error)=> {
-        console.log(error)
-      })
+      .catch(error => console.log(error));
   }
 
   logOut = () => {
@@ -59,7 +50,7 @@ class App extends Component {
     this.setState({currentUser});
   }
 
-  signUp = (newUser) => {
+  signUp = newUser => {
     newUser.email = newUser.email.replace(/@|\./ig, '');
 
     fetch('http://localhost:8080/users/add-user/', {
@@ -68,27 +59,29 @@ class App extends Component {
       headers: {'Content-Type': 'application/json'},
     })
     .then(response => {
-      console.log(response)
-      return response.json();
+      if (response.status >= 200 && response.status < 300) {
+        return response.json();
+      } else {
+        alert('There was a problem signing you up. Please try again later.')
+        throw new Error(response.status);
+      }
     })
     .then(body => {
       let currentUser = {...this.state.currentUser};
       currentUser = {...body};
       this.setState({currentUser});
     })
-    .catch((error)=> {
-      console.log(error)
-    })
+    .catch(error => console.log(error));
   }
 
-  getObjects = (queryString, Page) => {
-    fetch(`http://api.thewalters.org/v1/objects?page=${Page}&collectionId=2&apikey=${apiKey}&${queryString}`)
+  getObjects = (queryString, Page, callback) => {
+    fetch(`http://api.thewalters.org/v1/objects?&apikey=${apiKey}&${queryString}&page=${Page}&collectionId=2`)
       .then(response => {
-        if (response.status == 404) {
-          alert('No objects found based on your search criteria. Try broadening your search')
-          throw new Error(response.status)
-        } else {
+        if (response.status >= 200 && response.status < 300) {
           return response.json();
+        } else {
+          alert('No objects found based on your search criteria. Try broadening your search');
+          throw new Error(response.status);
         }
       })
       .then(body => {
@@ -100,11 +93,9 @@ class App extends Component {
           Page: body.Page,
           NextPage:body.NextPage,
           PrevPage: body.PrevPage
-        });
+        }, () => callback ? callback('results') : undefined);
       })
-      .catch((error)=> {
-        console.log(error)
-      })
+      .catch(error => console.log(error));
   }
 
   addFavorite = () => {
@@ -114,41 +105,40 @@ class App extends Component {
       body: JSON.stringify(favorite),
       headers: {'Content-Type': 'application/json'},
     })
-    .then(response => response.json())
+    .then(response => {
+      if (response.status >= 200 && response.status < 300) {
+        return response.json();
+      } else {
+        alert('There was a problem adding this item to your favorites. Please try again');
+        throw new Error(response.status);
+      }
+    })
     .then(body => {
       let currentUser = {...this.state.currentUser};
       currentUser.favorites.push(body);
       this.setState({currentUser});
     })
-    .catch((error)=> {
-      console.log(error)
-    })
+    .catch(error => console.log(error));
   }
 
-  removeFavorite = (id) => {
+  removeFavorite = id => {
     fetch(`http://localhost:8080/users/delete-favorite/${id}`, {
       method: 'DELETE'
     })
     .then(response => {
-      if (response.status == 404) {
-        alert('unable to delete favorite')
-        throw new Error(response.status)
-      } else {
+      if (response.status >= 200 && response.status < 300) {
         let currentUser = {...this.state.currentUser};
         currentUser.favorites = currentUser.favorites.filter(item => item.favoriteId != id);
         this.setState({currentUser});
+      } else {
+        alert('There was a problem removing this item to your favorites. Please try again');
+        throw new Error(response.status);
       }
     })
-    .catch((error)=> {
-      console.log(error)
-    })
+    .catch(error => console.log(error));
   }
 
-  setDetail = (object) => {
-    let detail = {...this.state.detal};
-    detail = object;
-    this.setState({detail});
-  }
+  setDetail = detail => this.setState({detail});
 
   LoginComponent = () =>
     <Login
@@ -192,7 +182,7 @@ class App extends Component {
     return (
       <Router>
         <Switch>
-          <Route exact path="/home" render={this.HomeComponent}/>
+          <Route exact path="/" render={this.HomeComponent}/>
           <Route exact path="/login" render={this.LoginComponent}/>
           <Route exact path="/results" render={this.ResultsComponent} />
           <Route exact path="/detail" render={this.DetailComponent} />

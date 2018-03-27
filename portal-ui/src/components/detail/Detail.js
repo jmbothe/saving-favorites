@@ -8,9 +8,7 @@ class Detail extends Component {
     redirect: '',
   }
 
-  toggleRedirect = (route) => {
-    this.setState({redirect: route});
-  }
+  toggleRedirect = route => this.setState({redirect: route});
 
   render() {
     if (this.state.redirect) return <Redirect to={`/${this.state.redirect}`}/>;
@@ -32,7 +30,7 @@ class Detail extends Component {
         <section className="detail-container">
           <section className="detail-image">
             <a href={this.props.detail.PrimaryImage.Raw} target="_blank" rel="noopener noreferrer">
-              <img src={this.props.detail.PrimaryImage.Raw}/>
+              <img src={this.props.detail.PrimaryImage.Raw} alt={this.props.detail.Title}/>
             </a>
           </section>
           <section className="detail-text">

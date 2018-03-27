@@ -24,6 +24,7 @@
 }
 
 .detail-text button {
+  width: 20%;
   padding: 1.5%;
   background-color:#FFCCBC;
   border: none;

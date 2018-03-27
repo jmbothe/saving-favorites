@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class PageWrapper extends Component {
   logOutRedirect = () => {
@@ -20,10 +21,16 @@ class PageWrapper extends Component {
     return (
       <div className="page-wrapper">
         <header>
-          <div>
+          <Link
+            to="/"
+          >
             <h1>The Walters Art Museum</h1>
             <h2>Ancient Americas Collection</h2>
-          </div>
+          </Link>
+          {/* <div>
+            <h1>The Walters Art Museum</h1>
+            <h2>Ancient Americas Collection</h2>
+          </div> */}
           {this.props.currentUser ? this.loggedInCard() : null}
         </header>
         {this.props.children}

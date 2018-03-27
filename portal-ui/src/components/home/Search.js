@@ -12,9 +12,8 @@ class Search extends Component {
     const queryString = Object.entries(this.state.search).map(item => {
       return `${item[0]}=${item[1]}`;
     }).join('&');
-    this.props.getObjects(queryString, 1);
+    this.props.getObjects(queryString, 1, this.props.toggleRedirect);
     e.target.reset();
-    this.props.toggleRedirect('results');
   }
 
   onChange = (e) => {

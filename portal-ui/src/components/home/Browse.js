@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
-import {Redirect} from 'react-router-dom';
 
 import {regions, media} from '../../browse.js'
 
 class Browse extends Component {
   handleChange = (e) => {
     const queryString = `${e.target.name}=${e.target.value}`
-    this.props.getObjects(queryString, 1);
-    this.props.toggleRedirect('results');
+    this.props.getObjects(queryString, 1, this.props.toggleRedirect);
   }
 
   getFavorites = () => {
@@ -16,8 +14,7 @@ class Browse extends Component {
     })
     .join(',')}`
 
-    this.props.getObjects(queryString);
-    this.props.toggleRedirect('results');
+    this.props.getObjects(queryString, null, this.props.toggleRedirect);
   }
 
   render() { 
@@ -36,7 +33,10 @@ class Browse extends Component {
       </header>
       <div className="browse-inputs">
         <div>
-          <button onClick={this.getFavorites}>
+          <button
+            onClick={this.getFavorites}
+            disabled={!this.props.currentUser.favorites || !this.props.currentUser.favorites.length}
+          >
             View Your Favorites
           </button>  
         </div>

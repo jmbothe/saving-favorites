@@ -72,7 +72,6 @@ BROWSE AND SEARCH
   border-radius: 3px;
   padding: .2% 4%;
   box-shadow: 4px 4px 10px #ddd;
-  cursor: pointer;
 }
 
 .search-form input[type="submit"] {

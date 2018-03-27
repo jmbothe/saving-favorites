@@ -10,12 +10,10 @@ class Login extends Component {
     loginView: false,
   }
 
-  toggleLoginView = (boolean) => {
-    this.setState({loginView: boolean});
-  }
+  toggleLoginView = boolean => this.setState({loginView: boolean});
 
   render() {
-    if (this.props.currentUser) return <Redirect to="/home"/>;
+    if (this.props.currentUser) return <Redirect to="/" />;
 
     const content = (this.state.loginView)
     ? <LoginForm

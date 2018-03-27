@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Redirect} from 'react-router-dom';
+import {Redirect, withRouter} from 'react-router-dom';
 
 import PageWrapper from '../PageWrapper';
 import Browse from './Browse';
@@ -10,12 +10,14 @@ class Home extends Component {
     redirect: '',
   }
 
-  toggleRedirect = (route) => {
-    this.setState({redirect: route});
-  }
+  toggleRedirect = route => this.setState({redirect: route});
 
   render() { 
-    if (this.state.redirect) return <Redirect to={`/${this.state.redirect}`}/>;
+    if (this.state.redirect) {
+      this.setState({redirect: ''})
+      this.props.history.push("/")
+      return <Redirect to={`/${this.state.redirect}`}/>;
+    };
     if (!this.props.currentUser) return <Redirect to={'/login'}/>;
 
     return (
@@ -58,4 +60,4 @@ class Home extends Component {
   }
 }
  
-export default Home;
+export default withRouter(Home);

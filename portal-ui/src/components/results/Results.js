@@ -9,17 +9,13 @@ class Results extends Component {
     redirect: '',
   }
 
-  toggleRedirect = (route) => {
-    this.setState({redirect: route});
-  }
+  toggleRedirect = route => this.setState({redirect: route});
 
-  decrementPage = () => {
-    this.props.getObjects(this.props.queryString, this.props.page - 1)
-  }
+  decrementPage = () =>
+    this.props.getObjects(this.props.queryString, this.props.page - 1);
 
-  incrementPage = () => {
-    this.props.getObjects(this.props.queryString, this.props.page + 1)
-  }
+  incrementPage = () =>
+    this.props.getObjects(this.props.queryString, this.props.page + 1);
 
   render() {
     if (this.state.redirect) return <Redirect to={`/${this.state.redirect}`}/>;

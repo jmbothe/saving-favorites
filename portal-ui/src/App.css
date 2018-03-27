@@ -32,7 +32,7 @@ button, input[type="submit"], select {
 
 button:disabled {
   opacity: 0.5;
-  cursor: default;
+  cursor: not-allowed;
 }
 
 #root {
@@ -60,6 +60,10 @@ button:disabled {
   text-align: right;
 }
 
+.page-wrapper > header a {
+  text-decoration: none;
+}
+
 .heading-logout-container {
   display: flex;
   flex-direction: column;
@@ -70,7 +74,7 @@ button:disabled {
 
 .heading-logout-container button {
   padding: 2% 10%;
-  width: 50%;
+  width: 60%;
   background-color: #fff;
   border: 1px solid #E64A19;
   outline: none;
