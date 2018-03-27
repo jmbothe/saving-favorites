@@ -41,13 +41,13 @@ class SignupForm extends Component {
             onChange={this.onChange}
           />
         </div>
-        {/* <div className="form-row">
+        <div className="form-row">
           <label htmlFor="password">Password</label>
           <input
             type="password" id="password" name="password" required
             onChange={this.onChange}
           />
-        </div> */}
+        </div>
         <div className="form-row">
           <input type="submit" id="submit" />
         </div>

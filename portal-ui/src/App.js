@@ -41,7 +41,10 @@ class App extends Component {
         currentUser = {...body};
         this.setState({currentUser});
       })
-      .catch(error => console.log(error));
+      .catch(error => {
+        alert('There was a problem logging in. Please try again.');
+        console.log(error);
+      });
   }
 
   logOut = () => {
@@ -71,7 +74,10 @@ class App extends Component {
       currentUser = {...body};
       this.setState({currentUser});
     })
-    .catch(error => console.log(error));
+    .catch(error => {
+      alert('There was a problem signing you up. Please try again later.');
+      console.log(error);
+    })
   }
 
   getObjects = (queryString, Page, callback) => {
@@ -95,7 +101,10 @@ class App extends Component {
           PrevPage: body.PrevPage
         }, () => callback ? callback('results') : undefined);
       })
-      .catch(error => console.log(error));
+      .catch(error => {
+        alert('There was a problem with your request. Please try again later.');
+        console.log(error);
+      });
   }
 
   addFavorite = () => {
@@ -118,7 +127,10 @@ class App extends Component {
       currentUser.favorites.push(body);
       this.setState({currentUser});
     })
-    .catch(error => console.log(error));
+    .catch(error => {
+      alert('There was a problem adding this item to your favorites. Please try again later.');
+      console.log(error)
+    });
   }
 
   removeFavorite = id => {
@@ -131,11 +143,14 @@ class App extends Component {
         currentUser.favorites = currentUser.favorites.filter(item => item.favoriteId != id);
         this.setState({currentUser});
       } else {
-        alert('There was a problem removing this item to your favorites. Please try again');
+        alert('There was a problem removing this item to your favorites. Please try again.');
         throw new Error(response.status);
       }
     })
-    .catch(error => console.log(error));
+    .catch(error => {
+      alert('There was a problem removing this item to your favorites. Please try again later.');
+      console.log(error);
+    });
   }
 
   setDetail = detail => this.setState({detail});

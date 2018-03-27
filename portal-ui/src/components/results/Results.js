@@ -9,6 +9,10 @@ class Results extends Component {
     redirect: '',
   }
 
+  componentDidUpdate() {
+    window.scrollTo(0, 0)
+  }
+
   toggleRedirect = route => this.setState({redirect: route});
 
   decrementPage = () =>

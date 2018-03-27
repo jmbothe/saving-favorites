@@ -53,6 +53,10 @@ button:disabled {
   padding: 0 2%;
   background-color: #FFCCBC;
   border-bottom: 6px solid #E64A19;
+  box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.2);
+  position: fixed;
+  width: 100vw;
+  z-index: 1;
 }
 
 .page-wrapper > header h2 {
@@ -79,4 +83,8 @@ button:disabled {
   border: 1px solid #E64A19;
   outline: none;
   border-radius: 3px;
+}
+
+.page-wrapper > section:first-of-type {
+  margin-top: 80px;
 }
