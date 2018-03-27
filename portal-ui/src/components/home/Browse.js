@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import {regions, media} from '../../browse.js'
+import {regions, media} from '../../selectOptions.js'
 
 class Browse extends Component {
   handleChange = (e) => {

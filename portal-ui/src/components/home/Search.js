@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import {cultures, media, orderBy} from '../../browse'
+import { cultures, media, orderBy } from '../../selectOptions'
 
 class Search extends Component {
   state = {
@@ -10,7 +10,7 @@ class Search extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const queryString = Object.entries(this.state.search).map(item => {
-      return `${item[0]}=${item[1]}`;
+      return item.join('=');
     }).join('&');
     this.props.getObjects(queryString, 1, this.props.toggleRedirect);
     e.target.reset();

@@ -18,7 +18,9 @@ class Detail extends Component {
     if (this.state.redirect) return <Redirect to={`/${this.state.redirect}`}/>;
 
     const fav =
-      this.props.currentUser.favorites.find(item => item.itemId == this.props.detail.ObjectID);
+      this.props.currentUser
+      ? this.props.currentUser.favorites.find(item => item.itemId == this.props.detail.ObjectID)
+      : null;
 
     const button =
       fav
