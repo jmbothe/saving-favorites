@@ -48,20 +48,14 @@ class App extends Component {
       }
       return response.json();
     })
-    .then(body => {
-      return fetch(`http://localhost:8080/users/get-user-by-email/${body.email}/`);
-    })
+    .then(body => fetch(`http://localhost:8080/users/get-user-by-email/${body.email}/`))
     .then(response => {
       if (response.status < 200 || response.status >= 300) {
         throw new Error(response.status);
       }
       return response.json();
     })
-    .then(body => {
-      let currentUser = {...this.state.currentUser};
-      currentUser = {...body};
-      this.setState({currentUser});
-    })
+    .then(body => this.setState({currentUser: body}))
     .catch(error => {
       alert('There was a problem logging in. Please try again.');
       console.log(error);
@@ -103,9 +97,8 @@ class App extends Component {
       return response.json();
     })
     .then(body => {
-      let currentUser = {...this.state.currentUser};
-      currentUser = {...body};
-      this.setState({currentUser});
+      body.favorites = [];
+      this.setState({currentUser: body});
     })
     .catch(error => {
       alert('There was a problem signing you up. Please try again later.');

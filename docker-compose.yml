@@ -42,6 +42,20 @@ services:
       - GRADLE_USER_HOME=cache
       - SPRING_PROFILES_ACTIVE=dev
 
+  portal-ui:
+    image: node:latest
+    build: ./portal-ui
+    ports:
+      - 3000:3000
+    working_dir: /portal-ui
+    volumes:
+      - ./portal-ui:/portal-ui
+    command: 'npm start'
+    depends_on:
+      - eureka
+      - postgresdev
+      - users-api 
+
   postgresdev:
     image: postgres
     ports:
