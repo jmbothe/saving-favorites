@@ -43,18 +43,14 @@ services:
       - SPRING_PROFILES_ACTIVE=dev
 
   portal-ui:
-    image: node:latest
     build: ./portal-ui
+    expose:
+      - 3000
     ports:
       - 3000:3000
-    working_dir: /portal-ui
     volumes:
-      - ./portal-ui:/portal-ui
-    command: 'npm start'
-    depends_on:
-      - eureka
-      - postgresdev
-      - users-api 
+      - ./portal-ui/src:/portal-ui/src
+      - ./portal-ui/public:/portal-ui/public
 
   postgresdev:
     image: postgres
